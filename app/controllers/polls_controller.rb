@@ -8,7 +8,7 @@ class PollsController < ApplicationController
 
   def index 
     debugger
-    @polls = Poll.find_by_user_id(params[:user_id])
+    @polls = Poll.find_by_user_id(current_user.id)
     render :index
   end
 

@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   validates :email, :password, :username, presence: true
   validates :password, length: {minimum: 5, allow_nil: true }
   validates :email, uniqueness: true
+  validates :username, uniqueness: true
 
   has_many :polls, :dependent => :destroy
   has_many :sessions, :dependent => :destroy

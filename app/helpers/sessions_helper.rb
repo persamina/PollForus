@@ -12,6 +12,11 @@ module SessionsHelper
     #session[:session_token] = user.session_token
   #end
 
+  def set_session_token_cookie(user)
+    @session = Session.find_by_user_id(user.id)
+    session[:session_token] = @session.session_token
+  end
+
   def logout_current_user!
     @session = Session.find_by_session_token(session[:session_token])
     @session.destroy

@@ -1,0 +1,16 @@
+<h3>Sign Up</h3>
+<form action="<%= users_url %>" method="POST">
+  <label for="email">Email</label>
+  <input type="text" name="user[email]" id="email">
+  <br>
+
+  <label for="username">Username</label>
+  <input type="text" name="user[username]" id="username">
+  <br>
+
+  <label for="password">Password</label>
+  <input type="password" name="user[password]" id="password">
+  <br>
+
+  <input type="submit" value="Sign Up">
+</form>

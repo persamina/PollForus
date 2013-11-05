@@ -1,0 +1,7 @@
+<h1>Polls</h1>
+
+<% if @polls %>
+  <% @polls.each do |poll| %>
+    <p><%= poll %></p>
+  <% end %>
+<% end %>

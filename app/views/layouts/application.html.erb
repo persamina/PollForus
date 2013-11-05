@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PollForUs</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <% if current_user %>
+    <%= button_to "Sign Out", session_url,  method: :delete %>
+  <% else %>
+    <%= button_to "Sign In", new_session_url, method: :get %> 
+    <%= button_to "Sign Up", new_user_url, method: :get %>
+  <% end %>
+
+  <% if flash[:errors] %>
+    <% flash[:errors].each do |error| %>
+      <div class="error"><%= error %><div>
+    <% end %>
+  <% end %>
+
+  <% if flash[:notice] %>
+    <% flash[:notice].each do |notice| %>
+      <div class="notice"><%= notice%><div>
+    <% end %>
+  <% end %>
+
+
+<%= yield %>
+
+</body>
+</html>

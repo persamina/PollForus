@@ -4,7 +4,8 @@ PollForUs.Routers.AppRouter = Backbone.Router.extend({
   },
 
   routes: {
-    "": "showIndex"
+    "": "showIndex",
+    "polls/:id": "showDetail"
   },
 
   showIndex: function() {
@@ -12,7 +13,20 @@ PollForUs.Routers.AppRouter = Backbone.Router.extend({
       collection: PollForUs.polls 
     });
 
-    this.$rootEl.html(pollIndex.render().$el)
+    this.$rootEl.html(pollIndex.render().$el);
+    
+  },
+
+  showDetail: function(id) {
+    console.log("in showDetail");
+    var currentPoll = PollForUs.polls.get(id);
+
+    var pollDetail = new PollForUs.Views.PollDetail({
+       model: currentPoll
+    });
+    debugger
+    
+    this.$rootEl.html(pollDetail.render().$el);
   },
 
 });

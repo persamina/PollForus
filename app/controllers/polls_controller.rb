@@ -9,10 +9,10 @@ class PollsController < ApplicationController
   end
 
   def index 
-    @polls = Poll.find_by_user_id(current_user.id)
+    @polls = Poll.find_all_by_user_id(current_user.id)
     respond_to do |format|
       format.html { render :index }
-      format.json { render :json => @polls }
+      format.json { render :indexRABL }
     end
   end
 

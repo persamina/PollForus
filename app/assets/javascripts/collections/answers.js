@@ -1,6 +1,5 @@
-PollForUs.Collections.Polls = Backbone.Collection.extend({
-  model: PollForUs.Models.Poll,
-  url: "/polls",
+PollForUs.Collections.Answers = Backbone.Collection.extend({
+  model: PollForUs.Models.Answer
 
   // parse: function(respAttrs, options) {
     //debugger

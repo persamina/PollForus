@@ -1,5 +1,6 @@
-PollForUs.Views.PollDetail = Backbone.View.extend({
-  template: JST["polls/detail"],
+PollForUs.Views.PollDetailList = Backbone.View.extend({
+  tagName: "li",
+  template: JST["polls/detail_list"],
 
   render: function() {
     var renderedContent = this.template({ poll: this.model});

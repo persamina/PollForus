@@ -8,7 +8,7 @@ PollForUs.Views.PollIndex = Backbone.View.extend({
     this.$el.html(renderedContent);
 
     this.collection.forEach(function(poll) {
-      var pollDetail = new PollForUs.Views.PollDetail({
+      var pollDetail = new PollForUs.Views.PollDetailList({
         model: poll
       });
       pollIndex.$(".polls").append(pollDetail.render().$el);

@@ -1,7 +1,7 @@
 class Question < ActiveRecord::Base
-  attr_accessible :body, :question_id
+  attr_accessible :body, :poll_id
 
-  validates :body, :question_id, presence: true
+  validates :body, :poll_id, presence: true
 
   belongs_to :poll
   has_many :answers, :dependent => :destroy

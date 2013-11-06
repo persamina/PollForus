@@ -1,1 +1,16 @@
-<a href="#"><%= poll.escape("name") %></a>
+<h1> <%= poll.escape("name") %> </h1>
+
+<h3> Questions </h3>
+<ul>
+<% poll.get("questions").forEach(function(question) { %>
+  <li>
+    <%= question.escape("body") %>
+    <ul>
+    <% question.get("answers").forEach(function(answer) { %>
+      <li><%= answer.escape("body") %></li>
+    <% }); %>
+    </ul>
+  </li>
+<% }); %>
+</ul>
+

@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     if @user
       @session = Session.create(user_id: @user.id)
       session[:session_token] = @session.session_token
-      redirect_to new_session_url
+      redirect_to :root
     else
       flash.now[:errors] = ["Invalid email or password"]
       render :new

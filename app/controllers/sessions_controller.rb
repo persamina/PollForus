@@ -1,11 +1,11 @@
 class SessionsController < ApplicationController
+
   def new
     render :new
   end
 
   def create
     @user = User.find_by_credentials(params[:user][:email], params[:user][:password]);
-    p @user
     if @user
       @session = Session.create(user_id: @user.id)
       session[:session_token] = @session.session_token

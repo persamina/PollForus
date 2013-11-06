@@ -1,0 +1,3 @@
+PollForUs.Models.Poll = Backbone.Model.extend({
+  urlRoot: "/polls"
+});

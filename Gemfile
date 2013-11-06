@@ -8,7 +8,26 @@ gem 'rails', '3.2.14'
 
 gem 'pg'
 
+#twilio api
 gem 'twilio-ruby'
+
+gem 'backbone-on-rails'
+#gem 'underscore-rails'
+
+group :development do
+  gem 'pry-rails'
+  gem 'better_errors'
+  gem 'meta_request'
+  gem 'binding_of_caller'
+  gem 'debugger'
+end
+
+#for JST templates
+gem 'ejs'
+
+#files to use RABL
+gem 'rabl'
+gem 'oj'
 
 group :development do
   gem 'debugger'

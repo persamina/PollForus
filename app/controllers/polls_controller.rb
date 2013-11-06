@@ -1,4 +1,6 @@
 class PollsController < ApplicationController
+  layout "backbone"
+  respond_to :json
 
   before_filter :require_login
 
@@ -7,9 +9,11 @@ class PollsController < ApplicationController
   end
 
   def index 
-    debugger
     @polls = Poll.find_by_user_id(current_user.id)
-    render :index
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render :json => @polls }
+    end
   end
 
   def new

@@ -6,5 +6,5 @@ PollForUs::Application.routes.draw do
 
   resources :polls
 
-  root to: "sessions#new"
+  root to: "polls#index"
 end

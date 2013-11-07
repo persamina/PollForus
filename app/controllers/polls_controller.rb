@@ -23,12 +23,20 @@ class PollsController < ApplicationController
   def create 
     @poll = Poll.new(params[:poll])
     @poll.user_id = current_user.id
+    debugger
     if @poll.save
-      render :json => @poll
+      render :showRABL
     else
       render 422
     end
-    
+  end
+
+  def destroy
+    @poll = Poll.find(params[:id])
+    if @poll
+      @poll.destroy
+    end
+    render :showRABL
   end
 
 end

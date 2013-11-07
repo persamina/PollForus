@@ -14,7 +14,7 @@ PollForUs.Routers.AppRouter = Backbone.Router.extend({
       collection: PollForUs.polls 
     });
 
-    this.$rootEl.html(pollIndex.render().$el);
+    this._swapView(pollIndex.render().$el);
     
   },
 
@@ -25,7 +25,7 @@ PollForUs.Routers.AppRouter = Backbone.Router.extend({
        model: currentPoll
     });
     
-    this.$rootEl.html(pollDetail.render().$el);
+    this._swapView(pollDetail.render().$el);
   },
 
   showNew: function() {
@@ -35,7 +35,13 @@ PollForUs.Routers.AppRouter = Backbone.Router.extend({
       model: newPoll
     });
 
-    this.$rootEl.html(pollNew.render().$el);
+    this._swapView(pollNew.render().$el);
+  },
+
+  _swapView: function(view) {
+    this._currentView && this._currentView.remove();
+    this._currentView = view;
+    this.$rootEl.html(view);
   },
 
 });

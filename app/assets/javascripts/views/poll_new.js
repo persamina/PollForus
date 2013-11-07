@@ -17,22 +17,22 @@ PollForUs.Views.PollNew = Backbone.View.extend({
   },
   
   submit: function(event) {
+    var newView = this;
     event.preventDefault();
     var newPollValues = $(event.currentTarget).serializeJSON().poll;
     this.model = new PollForUs.Models.Poll(newPollValues, {parse: true} );
-    // this.model["questions"] = new PollForUs.collection.Questions(newPollValues.questions);
-    // this.model.set(newPollValues.poll);
     
     this.collection.create(this.model, {
       success: function(poll) {
-        console.log("success adding");
+        debugger
+        newView.model = poll;
+
       },
       error: function(poll) {
-        console.log("NOT success adding");
       }
     });
     
-    console.log("form submitted");
+    Backbone.history.navigate("", {trigger: true});
   },
 
   addQuestion: function(event) {

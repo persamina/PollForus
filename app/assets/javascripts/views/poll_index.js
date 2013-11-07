@@ -1,5 +1,12 @@
 PollForUs.Views.PollIndex = Backbone.View.extend({
   
+  initialize: function() {
+    this.listenTo(this.collection, "add remove change", this.render);
+  },
+  events: {
+    "click .delete-poll": "deletePoll"
+  },
+
   template: JST["polls/index"],
 
   render: function() {
@@ -15,4 +22,17 @@ PollForUs.Views.PollIndex = Backbone.View.extend({
     });
     return this;
   },
+
+  deletePoll: function(event) {
+    event.preventDefault();
+    var linkClicked = $(event.currentTarget);
+    var pollId = linkClicked.data("pollId");
+    var pollToDelete = this.collection.get(pollId);
+    pollToDelete.destroy({
+      success: function(model, response) {
+        console.log("destroyed");
+      }
+    });
+
+  }
 });

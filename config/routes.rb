@@ -3,7 +3,7 @@ PollForUs::Application.routes.draw do
   end
 
   resource :text_messages, :only => [] do 
-    get :send_text_message
+    post :receive_text_message
   end
 
   resource :session, only: [:new, :create, :destroy]

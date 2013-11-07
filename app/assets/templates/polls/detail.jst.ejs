@@ -1,13 +1,18 @@
 <h1> <%= poll.escape("name") %> </h1>
 
 <h3> Questions </h3>
+<h4> Text +1 928-237-4477 the text code for the answer </h4>
 <ul>
 <% poll.get("questions").forEach(function(question) { %>
   <li>
     <%= question.escape("body") %>
     <ul>
     <% question.get("answers").forEach(function(answer) { %>
-      <li><%= answer.escape("body") %></li>
+      <li>
+      <%= answer.escape("body") %> 
+      Text Code: <%= answer.id %>
+      (Votes: <%= answer.get("answer_choices").length %>)
+      </li>
     <% }); %>
     </ul>
   </li>

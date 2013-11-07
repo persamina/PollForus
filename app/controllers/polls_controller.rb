@@ -9,7 +9,7 @@ class PollsController < ApplicationController
   end
 
   def index 
-    @polls = Poll.includes(:questions => :answers).where(:user_id => current_user.id)
+    @polls = Poll.includes(:questions => {:answers => :answer_choices}).where(:user_id => current_user.id)
 
     #@polls = Poll.find_all_by_user_id(current_user.id)
     respond_to do |format|

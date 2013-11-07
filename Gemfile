@@ -14,6 +14,9 @@ gem 'figaro'
 #twilio api
 gem 'twilio-ruby'
 
+# verifies that foreign key is a primary key for table
+gem "validates_existence"
+
 gem 'backbone-on-rails'
 #gem 'underscore-rails'
 

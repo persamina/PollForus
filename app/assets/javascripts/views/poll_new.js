@@ -24,7 +24,6 @@ PollForUs.Views.PollNew = Backbone.View.extend({
     
     this.collection.create(this.model, {
       success: function(poll) {
-        debugger
         newView.model = poll;
 
       },

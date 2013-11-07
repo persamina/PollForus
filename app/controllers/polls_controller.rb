@@ -9,7 +9,9 @@ class PollsController < ApplicationController
   end
 
   def index 
-    @polls = Poll.find_all_by_user_id(current_user.id)
+    @polls = Poll.includes(:questions => :answers).where(:user_id => current_user.id)
+
+    #@polls = Poll.find_all_by_user_id(current_user.id)
     respond_to do |format|
       format.html { render :index }
       format.json { render :indexRABL }
@@ -23,7 +25,6 @@ class PollsController < ApplicationController
   def create 
     @poll = Poll.new(params[:poll])
     @poll.user_id = current_user.id
-    debugger
     if @poll.save
       render :showRABL
     else

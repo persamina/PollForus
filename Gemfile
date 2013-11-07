@@ -6,7 +6,10 @@ gem 'rails', '3.2.14'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+#postgresql
 gem 'pg'
+
+gem 'figaro'
 
 #twilio api
 gem 'twilio-ruby'
@@ -33,6 +36,7 @@ group :development do
   gem 'debugger'
 end
 
+# To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', :require => 'bcrypt'
 
 
@@ -50,8 +54,6 @@ end
 
 gem 'jquery-rails'
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
@@ -62,5 +64,3 @@ gem 'jquery-rails'
 # Deploy with Capistrano
 # gem 'capistrano'
 
-# To use debugger
-# gem 'debugger'

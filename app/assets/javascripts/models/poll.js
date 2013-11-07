@@ -4,4 +4,11 @@ PollForUs.Models.Poll = Backbone.Model.extend({
     respAttrs.questions = new PollForUs.Collections.Questions(respAttrs.questions, {parse: true} );
     return respAttrs;
   },
+
+  toJSON: function() {
+    var data = _.extend({}, this.attributes);
+    data.questions_attributes = this.get("questions").toJSON();
+    delete data.questions;
+    return data;
+  },
 });

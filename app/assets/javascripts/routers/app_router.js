@@ -31,6 +31,7 @@ PollForUs.Routers.AppRouter = Backbone.Router.extend({
   showNew: function() {
     var newPoll = new PollForUs.Models.Poll();
     var pollNew = new PollForUs.Views.PollNew({
+      collection: PollForUs.polls,
       model: newPoll
     });
 

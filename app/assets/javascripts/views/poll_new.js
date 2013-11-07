@@ -18,32 +18,45 @@ PollForUs.Views.PollNew = Backbone.View.extend({
   
   submit: function(event) {
     event.preventDefault();
+    var newPollValues = $(event.currentTarget).serializeJSON().poll;
+    this.model = new PollForUs.Models.Poll(newPollValues, {parse: true} );
+    // this.model["questions"] = new PollForUs.collection.Questions(newPollValues.questions);
+    // this.model.set(newPollValues.poll);
+    
+    this.collection.create(this.model, {
+      success: function(poll) {
+        console.log("success adding");
+      },
+      error: function(poll) {
+        console.log("NOT success adding");
+      }
+    });
+    
     console.log("form submitted");
   },
 
   addQuestion: function(event) {
     event.preventDefault();
     var numQuestions = $(".questions").children().length;
-    var renderedContent = this.addQuestionTemplate({id: (numQuestions+1)});
+    var renderedContent = this.addQuestionTemplate({id: (numQuestions)});
     $(".questions").append(renderedContent);
   },
 
   addAnswer: function(event) {
     event.preventDefault();
-    var aa = $(event.currentTarget);
-    var qId = aa.data().qId;
+    var addAnswerButton = $(event.currentTarget);
+    var qId = addAnswerButton.data().qId;
     var answersString = ".answers#q"+qId;
     var answersDiv = $(answersString);
     var numAnswers = answersDiv.children().length;
     
     var renderedContent = this.addAnswerTemplate({
       qId: qId,
-      aId: (numAnswers+1)
+      aId: (numAnswers)
     });
     answersDiv.append(renderedContent);
     console.log("add answer");
 
   },
-
 
 });

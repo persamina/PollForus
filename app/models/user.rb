@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
   validates :username, uniqueness: true
 
-  has_many :polls, :dependent => :destroy
+  has_many :polls, :dependent => :destroy, :inverse_of => :user
   has_many :sessions, :dependent => :destroy
 
   after_create :require_session_token

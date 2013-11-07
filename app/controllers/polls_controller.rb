@@ -21,6 +21,14 @@ class PollsController < ApplicationController
   end
 
   def create 
+    @poll = Poll.new(params[:poll])
+    @poll.user_id = current_user.id
+    if @poll.save
+      render :json => @poll
+    else
+      render 422
+    end
+    
   end
 
 end

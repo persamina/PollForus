@@ -38,5 +38,5 @@ PollForUs::Application.configure do
 
   Pusher.app_id = ENV["DEV_PUSHER_APP_ID"]
   Pusher.key = ENV["DEV_PUSHER_KEY"]
-  Pusher.secret = : ENV["DEV_PUSHER_SECRET"]
+  Pusher.secret = ENV["DEV_PUSHER_SECRET"]
 end

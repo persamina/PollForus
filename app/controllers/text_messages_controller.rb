@@ -1,7 +1,7 @@
 class TextMessagesController < ApplicationController
 
   def receive_text_message
-    @message_text = params["Body"]    
+    @message_text = params["Body"].gsub(/\s+/, "")    
     @from_phone_number = params["From"]
     @message = "You didn't send us a number please try again!"
     if is_i?(@message_text)
@@ -41,6 +41,8 @@ class TextMessagesController < ApplicationController
   def sendPusherEvent(answer_choice)
 
     @answer = Answer.find(answer_choice.answer_id)
+    puts "ANTTI ANSWER= --#{@answer}--"
+    puts "ANTTI ANSWER_CHOICE= --#{answer_choice}--"
     Pusher.trigger("all_poll_answers", 'updated', {"answer_id" => answer_choice.answer_id, "user_answers" => @answer.answer_choices.count})
     
   end

@@ -1,3 +1,4 @@
+require 'pusher'
 PollForUs::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -34,4 +35,8 @@ PollForUs::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  Pusher.app_id = ENV["DEV_PUSHER_APP_ID"]
+  Pusher.key = ENV["DEV_PUSHER_KEY"]
+  Pusher.secret = : ENV["DEV_PUSHER_SECRET"]
 end

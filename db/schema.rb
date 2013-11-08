@@ -11,17 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131105145325) do
+ActiveRecord::Schema.define(:version => 20131108025330) do
 
   create_table "answer_choices", :force => true do |t|
-    t.integer  "answer_id",           :null => false
-    t.string   "phone_number_digest", :null => false
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.integer  "answer_id",    :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "phone_number", :null => false
   end
 
   add_index "answer_choices", ["answer_id"], :name => "index_answer_choices_on_answer_id"
-  add_index "answer_choices", ["phone_number_digest"], :name => "index_answer_choices_on_phone_number_digest"
+  add_index "answer_choices", ["phone_number"], :name => "index_answer_choices_on_phone_number"
 
   create_table "answers", :force => true do |t|
     t.string   "body",        :null => false

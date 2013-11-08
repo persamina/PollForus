@@ -30,7 +30,9 @@ PollForUs.Views.PollIndex = Backbone.View.extend({
     var pollToDelete = this.collection.get(pollId);
     pollToDelete.destroy({
       success: function(model, response) {
-        console.log("destroyed");
+        model.get("questions").forEach(function(question) {
+          PollForUs.allAnswers.remove(question.get("answers").models);
+        });
       }
     });
 

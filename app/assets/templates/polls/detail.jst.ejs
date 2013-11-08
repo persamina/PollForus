@@ -11,7 +11,7 @@
       <li>
       <%= answer.escape("body") %> 
       Text Code: <%= answer.id %>
-      (Votes: <%= answer.get("answer_choices").length %>)
+      (Votes: <%= answer.get("user_answers")%>)
       </li>
     <% }); %>
     </ul>

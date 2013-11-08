@@ -9,9 +9,12 @@ class TextMessagesController < ApplicationController
       @answer_choice = AnswerChoice.new(answer_id: @answer_id, phone_number: params["From"])
       if @answer_choice.valid?
         @answer_choice.save
-        @message = "You voted! you texted us '#{@answer_id}' :)"
+        #@poll_id = @answer_choice.answer.question.poll.id
+        sendPusherEvent(@answer_choice)
+
+        @message = "You voted! :) you texted us '#{@answer_id}'."
       else
-        @message = "Invalid number! please try again!"
+        @message = "Invalid number or you may have already voted! please try again!"
        
       end
     end
@@ -33,5 +36,12 @@ class TextMessagesController < ApplicationController
       :body => message
     )
 
+  end
+
+  def sendPusherEvent(answer_choice)
+
+    @answer = Answer.find(answer_choice.answer_id)
+    Pusher.trigger("all_poll_answers", 'updated', {"answer_id" => answer_choice.answer_id, "user_answers" => @answer.answer_choices.count})
+    
   end
 end

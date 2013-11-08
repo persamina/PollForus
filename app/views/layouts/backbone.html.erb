@@ -1,10 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>PollForUs</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+  <head>
+    <title>PollForUs</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <script src="http://js.pusher.com/2.1/pusher.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      // Enable pusher logging - don't include this in production
+    Pusher.log = function(message) {
+      if (window.console && window.console.log) {
+        window.console.log(message);
+      }
+    };
+
+    var pusher = new Pusher('079a3e6c11672d173dbf');
+    var channel = pusher.subscribe('all_poll_answers');
+    channel.bind('updated', function(data) {
+      var current_answer = PollForUs.allAnswers.get(data.answer_id);
+      current_answer.set("user_answers", data.user_answers);
+    });
+  </script>
+<%= csrf_meta_tags %>
 </head>
 <body>
   <% if current_user %>
@@ -17,17 +33,17 @@
   <% if flash[:errors] %>
     <% flash[:errors].each do |error| %>
       <div class="error"><%= error %><div>
-    <% end %>
-  <% end %>
+        <% end %>
+      <% end %>
 
-  <% if flash[:notice] %>
-    <% flash[:notice].each do |notice| %>
-      <div class="notice"><%= notice%><div>
-    <% end %>
-  <% end %>
+      <% if flash[:notice] %>
+        <% flash[:notice].each do |notice| %>
+          <div class="notice"><%= notice%><div>
+            <% end %>
+          <% end %>
 
 
-<%= yield %>
+          <%= yield %>
 
-</body>
-</html>
+        </body>
+      </html>

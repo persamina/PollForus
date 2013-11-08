@@ -9,6 +9,8 @@ gem 'rails', '3.2.14'
 #postgresql
 gem 'pg'
 
+gem 'pusher'
+
 gem 'figaro'
 
 #twilio api

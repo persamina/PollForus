@@ -25,7 +25,9 @@ PollForUs.Views.PollNew = Backbone.View.extend({
     this.collection.create(this.model, {
       success: function(poll) {
         newView.model = poll;
-
+        newView.model.get("questions").forEach(function(question) {
+          PollForUs.allAnswers.add(question.get("answers").models);
+        });
       },
       error: function(poll) {
       }
@@ -54,8 +56,6 @@ PollForUs.Views.PollNew = Backbone.View.extend({
       aId: (numAnswers)
     });
     answersDiv.append(renderedContent);
-    console.log("add answer");
-
   },
 
 });

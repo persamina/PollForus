@@ -1,5 +1,5 @@
 <script type="application/json" id="bootstrapped-data">
-  { "polls": <%= (Poll.includes(:questions => :answers).where(:user_id => current_user.id)).to_json.html_safe %> }
+  <%= (render(:file => 'polls/indexRABL.rabl')).html_safe %>
 </script>
 <div class="content"></div>
 

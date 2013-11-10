@@ -1,6 +1,8 @@
 <div class="question" id="q<%= id %>">
-  <label>Question <input type="text" name="poll[questions][<%= id %>][body]">
-  </label>
-  <div class="answers" id="q<%=id%>"></div>
+  <div class="form-inline">
+  <input type="text" class="input-xlarge" name="poll[questions][<%= id %>][body]" placeholder="Question">
   <a href="#" class="add-answer btn btn-primary" data-q-id="<%=id%>" id="q<%=id%>">Add Answer</a>
+  </div>
+  <br>
+  <ul class="answers" id="q<%=id%>"></ul>
 </div>

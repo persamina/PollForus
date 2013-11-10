@@ -3,12 +3,13 @@
 <h3> Text +1 928-237-4477 the text code for the answer </h3>
 <div class="questions">
     <% poll.get("questions").forEach(function(question) { %>
-    <div class="question">
-      <h4><%= question.escape("body") %></h4>
-        <ul class="answers">
+    <div class="live-question">
+      <h3><%= question.escape("body") %></h3>
+      <canvas class="results-chart" id="question-results-<%= question.id %>" width=225" height="225"></canvas>
+      <ul class="answers">
         <% question.get("answers").forEach(function(answer) { %>
-        <li>
-          <%= answer.escape("body") %> 
+        <li class="live-answer">
+          <%= answer.escape("body") %>
           Text Code: <%= answer.id %>
           (Votes: <%= answer.get("user_answers")%>)
         </li>

@@ -1,1 +1,11 @@
-<a href="#/polls/<%= poll.id %>" ><%= poll.escape("name") %></a> <a href="#" class="delete-poll" data-poll-id="<%= poll.id %>">Delete</a> 
+<div class="poll-item">
+  <a class="poll-name" href="#/polls/<%= poll.id %>" ><%= poll.escape("name") %></a>
+  <div class="poll-buttons">
+    <a href="#" class="edit-poll no-underline" data-poll-id="<%= poll.id %>">
+      <i class="icon-edit"></i>
+    </a> 
+    <a href="#" class="delete-poll no-underline" data-poll-id="<%= poll.id %>">
+      <i class="icon-remove"></i>
+    </a> 
+  </div>
+</div>

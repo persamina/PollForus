@@ -1,9 +1,19 @@
-<form class="new-poll">
-  <label >Poll Name <input type="text" name="poll[name]" value="<%= poll.escape("name") %>">
-  </label>
-  <div class="questions">
+<div class="new-poll">
+  <div class="page-header">
+    <h1> Create a New Poll </h1>
   </div>
-  <a class="add-question" href="#">Add Question</a>
-  <br>
-  <input type="submit" value="Submit">
-</form>
+  <form class="new-poll-form">
+    <label ><h3>Poll Name</h3> <input type="text" name="poll[name]" value="<%= poll.escape("name") %>">
+    </label>
+    <div class="questions">
+    </div>
+    
+    <br>
+    <div class="after-questions">
+      <a class="add-question btn btn-primary" href="#">Add Question</a>
+      <br>
+      <br>
+      <input type="submit" class="btn btn-primary btn-large" value="Create Poll!">
+    </div>
+  </form>
+</div>

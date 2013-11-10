@@ -1,0 +1,12 @@
+<% if current_user %>
+  <li>
+  <%= link_to "Sign Out", sign_out_session_url %>
+  </li>
+<% else %>
+  <li>
+  <%= link_to "Sign In", new_session_url, method: :get%> 
+  </li>
+  <li>
+  <%= link_to "Sign Up", new_user_url, method: :get%>
+  </li>
+<% end %>

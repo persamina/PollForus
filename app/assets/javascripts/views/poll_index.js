@@ -4,7 +4,8 @@ PollForUs.Views.PollIndex = Backbone.View.extend({
     this.listenTo(this.collection, "add remove change", this.render);
   },
   events: {
-    "click .delete-poll": "deletePoll"
+    "click .delete-poll": "deletePoll",
+    "click .edit-poll": "editPoll"
   },
 
   template: JST["polls/index"],
@@ -25,16 +26,26 @@ PollForUs.Views.PollIndex = Backbone.View.extend({
 
   deletePoll: function(event) {
     event.preventDefault();
-    var linkClicked = $(event.currentTarget);
-    var pollId = linkClicked.data("pollId");
+    var iconClicked = $(event.target);
+    var pollId = iconClicked.parent().data("pollId");
     var pollToDelete = this.collection.get(pollId);
     pollToDelete.destroy({
+      wait:true,
       success: function(model, response) {
         model.get("questions").forEach(function(question) {
           PollForUs.allAnswers.remove(question.get("answers").models);
         });
       }
     });
+
+  },
+
+  editPoll: function(event) {
+    event.preventDefault();
+    var iconClicked = $(event.target);
+    var pollId = iconClicked.parent().data("pollId");
+    var pollToDelete = this.collection.get(pollId);
+    console.log("edit me");
 
   }
 });

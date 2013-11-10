@@ -6,7 +6,9 @@ PollForUs::Application.routes.draw do
     post :receive_text_message
   end
 
-  resource :session, only: [:new, :create, :destroy]
+  resource :session, only: [:new, :create, :destroy] do
+    get :sign_out
+  end
 
   resources :polls
 

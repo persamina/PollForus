@@ -23,27 +23,10 @@
 <%= csrf_meta_tags %>
 </head>
 <body>
-  <% if current_user %>
-    <%= button_to "Sign Out", session_url,  method: :delete %>
-  <% else %>
-    <%= button_to "Sign In", new_session_url, method: :get %> 
-    <%= button_to "Sign Up", new_user_url, method: :get %>
-  <% end %>
+  <%= render "/layouts/navbar" %>
+  <%= render "layouts/flash", flash: flash %>
 
-  <% if flash[:errors] %>
-    <% flash[:errors].each do |error| %>
-      <div class="error"><%= error %><div>
-        <% end %>
-      <% end %>
+  <%= yield %>
 
-      <% if flash[:notice] %>
-        <% flash[:notice].each do |notice| %>
-          <div class="notice"><%= notice%><div>
-            <% end %>
-          <% end %>
-
-
-          <%= yield %>
-
-        </body>
-      </html>
+  </body>
+</html>

@@ -1,5 +1,4 @@
 PollForUs.Views.PollDetailList = Backbone.View.extend({
-  tagName: "li",
   template: JST["polls/detail_list"],
 
   render: function() {

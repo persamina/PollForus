@@ -3,7 +3,7 @@ PollForUs.Views.PollNew = Backbone.View.extend({
   addQuestionTemplate: JST["polls/add_question"],
   addAnswerTemplate: JST["polls/add_answer"],
   events: {
-    "submit .new-poll": "submit",
+    "submit .new-poll-form": "submit",
     "click .add-question": "addQuestion",
     "click .add-answer": "addAnswer"
   },
@@ -13,6 +13,7 @@ PollForUs.Views.PollNew = Backbone.View.extend({
       poll: this.model
     });
     this.$el.html(renderedContent);
+
     return this;
   },
   
@@ -23,6 +24,7 @@ PollForUs.Views.PollNew = Backbone.View.extend({
     this.model = new PollForUs.Models.Poll(newPollValues, {parse: true} );
     
     this.collection.create(this.model, {
+      wait: true,
       success: function(poll) {
         newView.model = poll;
         newView.model.get("questions").forEach(function(question) {

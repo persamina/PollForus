@@ -5,7 +5,6 @@ PollForUs.Views.PollIndex = Backbone.View.extend({
   },
   events: {
     "click .delete-poll": "deletePoll",
-    "click .edit-poll": "editPoll"
   },
 
   template: JST["polls/index"],
@@ -41,7 +40,6 @@ PollForUs.Views.PollIndex = Backbone.View.extend({
   },
 
   editPoll: function(event) {
-    event.preventDefault();
     var iconClicked = $(event.target);
     var pollId = iconClicked.parent().data("pollId");
     var pollToDelete = this.collection.get(pollId);

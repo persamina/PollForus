@@ -18,14 +18,19 @@ class PollsController < ApplicationController
     end
   end
 
-  def new
-    render :new
-  end
-
   def create 
     @poll = Poll.new(params[:poll])
     @poll.user_id = current_user.id
     if @poll.save
+      render :showRABL
+    else
+      render 422
+    end
+  end
+
+  def update
+    @poll = Poll.find(params[:poll_id])
+    if @poll.update_attributes(params[:poll])
       render :showRABL
     else
       render 422

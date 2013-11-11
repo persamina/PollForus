@@ -1,0 +1,19 @@
+<div class="new-poll">
+  <div class="page-header">
+    <h1> <%= title %> </h1>
+  </div>
+  <form class="new-poll-form">
+    <label ><h3>Poll Name</h3> <input type="text" name="poll[name]" value="<%= poll.escape("name")%>">
+    </label>
+    <div class="questions">
+    </div>
+    
+    <br>
+    <div class="after-questions">
+      <a class="add-question btn btn-primary" href="#">Add Question</a>
+      <br>
+      <br>
+      <input type="submit" class="btn btn-primary btn-large" value="<%= btnText %>">
+    </div>
+  </form>
+</div>

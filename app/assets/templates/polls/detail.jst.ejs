@@ -5,13 +5,13 @@
     <% poll.get("questions").forEach(function(question) { %>
     <div class="live-question">
       <h3><%= question.escape("body") %></h3>
-      <canvas class="results-chart" id="question-results-<%= question.id %>" width=225" height="225"></canvas>
+      <canvas class="results-chart" id="question-results-<%= question.id %>" width="250" height="250"></canvas>
       <ul class="answers">
         <% question.get("answers").forEach(function(answer) { %>
         <li class="live-answer">
           <%= answer.escape("body") %>
           Text Code: <%= answer.id %>
-          (Votes: <%= answer.get("user_answers")%>)
+          (<%= answer.get("user_answers")%>)
         </li>
         <% }); %>
       </ul>

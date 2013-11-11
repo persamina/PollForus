@@ -1,4 +1,5 @@
 PollForUs.Models.Question = Backbone.Model.extend({  
+  urlRoot: "/questions",
   parse: function(respAttrs, options) {
     respAttrs.answers = new PollForUs.Collections.Answers(respAttrs.answers, {parse: true});
     return respAttrs;

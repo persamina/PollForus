@@ -1,5 +1,5 @@
 PollForUs.Views.PollNew = Backbone.View.extend({
-  template: JST["polls/new"],
+  template: JST["polls/new_edit"],
   addQuestionTemplate: JST["polls/add_question"],
   addAnswerTemplate: JST["polls/add_answer"],
   events: {
@@ -10,7 +10,9 @@ PollForUs.Views.PollNew = Backbone.View.extend({
   
   render: function() {
     var renderedContent = this.template({
-      poll: this.model
+      poll: this.model,
+      btnText: "Create Poll!",
+      title: "Create a New Poll"
     });
     this.$el.html(renderedContent);
 
@@ -41,7 +43,11 @@ PollForUs.Views.PollNew = Backbone.View.extend({
   addQuestion: function(event) {
     event.preventDefault();
     var numQuestions = $(".questions").children().length;
-    var renderedContent = this.addQuestionTemplate({id: (numQuestions)});
+    var question = new PollForUs.Models.Question();
+    var renderedContent = this.addQuestionTemplate({
+      id: (numQuestions),
+      question: question 
+    });
     $(".questions").append(renderedContent);
   },
 
@@ -52,10 +58,12 @@ PollForUs.Views.PollNew = Backbone.View.extend({
     var answersString = ".answers#q"+qId;
     var answersDiv = $(answersString);
     var numAnswers = answersDiv.children().length;
+    var answer = new PollForUs.Models.Answer();
     
     var renderedContent = this.addAnswerTemplate({
       qId: qId,
-      aId: (numAnswers)
+      aId: (numAnswers),
+      answer: answer
     });
     answersDiv.append(renderedContent);
   },

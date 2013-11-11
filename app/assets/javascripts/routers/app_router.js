@@ -6,6 +6,7 @@ PollForUs.Routers.AppRouter = Backbone.Router.extend({
   routes: {
     "": "showIndex",
     "polls/new": "showNew",
+    "polls/:id/edit": "showEdit",
     "polls/:id": "showDetail"
   },
 
@@ -36,6 +37,16 @@ PollForUs.Routers.AppRouter = Backbone.Router.extend({
     });
 
     this._swapView(pollNew.render().$el);
+  },
+
+  showEdit: function(id) {
+    var editPoll = PollForUs.polls.get(id);
+    var pollEdit = new PollForUs.Views.PollEdit({
+      collection: PollForUs.polls,
+      model: editPoll
+    });
+
+    this._swapView(pollEdit.render().$el);
   },
 
   _swapView: function(view) {

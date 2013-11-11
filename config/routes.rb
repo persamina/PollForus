@@ -10,7 +10,9 @@ PollForUs::Application.routes.draw do
     get :sign_out
   end
 
-  resources :polls
+  resources :polls, only: [:index, :create, :update, :destroy]
+  resources :questions, only: [:create, :update, :destroy]
+  resources :answers, only: [:create, :update, :destroy]
 
   root to: "polls#index"
 end

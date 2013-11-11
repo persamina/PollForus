@@ -7,16 +7,19 @@ class QuestionsController < ApplicationController
   end
 
   def create 
-    @question = Poll.new(params[:question]);
+    @question = Question.new(params[:question]);
+    debugger
     if @question.save
       render :json => :@question
     else
+      
       render 422
     end
   end
 
   def update
-    @question = Poll.find(params[:question_id]);
+    debugger
+    @question = Question.find(params[:id]);
     if @question.update_attributes(params[:question])
       render :json => :@question
     else

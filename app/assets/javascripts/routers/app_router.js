@@ -21,7 +21,6 @@ PollForUs.Routers.AppRouter = Backbone.Router.extend({
 
   showDetail: function(id) {
     var currentPoll = PollForUs.polls.get(id);
-
     var pollDetail = new PollForUs.Views.PollDetail({
        model: currentPoll
     });

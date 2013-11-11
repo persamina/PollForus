@@ -6,7 +6,9 @@ PollForUs.Models.Question = Backbone.Model.extend({
   },
   toJSON: function() {
     var data = _.extend({}, this.attributes);
-    data.answers_attributes = this.get("answers").toJSON();
+    if(this.get("answers")) {
+      data.answers_attributes = this.get("answers").toJSON();
+    }
     delete data.answers;
     return data;
   },

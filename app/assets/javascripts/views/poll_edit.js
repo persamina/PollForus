@@ -31,24 +31,34 @@ PollForUs.Views.PollEdit = Backbone.View.extend({
     var editView = this;
     event.preventDefault();
     var newPollValues = $(event.currentTarget).serializeJSON().poll;
-    this.updateAndCreateModels(newPollValues);
-    debugger;
-    this.model = new PollForUs.Models.Poll(newPollValues, {parse: true} );
-    
-    
-    this.collection.create(this.model, {
+    newPollValues["id"] = this.model.id;
+       
+    newPollValues.questions = this.parseQuestions(newPollValues.questions, this.model.id);
+
+    var updatedPoll = new PollForUs.Models.Poll(newPollValues, {parse: true} );
+    this.model.set(updatedPoll );
+    this.model.save({}, {
       wait: true,
       success: function(poll) {
-        editView.model = poll;
         editView.model.get("questions").forEach(function(question) {
-          PollForUs.allAnswers.add(question.get("answers").models);
+          question.get("answers").forEach(function(answer) { 
+            var currentAnswer = PollForUs.allAnswers.get(answer.id);
+            if(currentAnswer) {
+              currentAnswer.set(answer);
+            } else {
+              PollForUs.allAnswers.add(answer);
+            }
+          });
         });
       },
-      error: function(poll) {
-      }
+      error: function(model) {
+
+        console.log("error updating");
+      },
+
     });
     
-    Backbone.history.navigate("", {trigger: true});
+    Backbone.history.navigate("#/polls/" + this.model.id, {trigger: true});
   },
 
   addQuestionButton: function(event) {
@@ -99,30 +109,51 @@ PollForUs.Views.PollEdit = Backbone.View.extend({
 
   },
 
-  updateAndCreateModels: function(data) {
-    var questions = this.createDataHash(data.questions, undefined);
-    delete data.questions;
-    debugger
-    this.model.save(data);
-    questions.forEach(function(question) {
+  parseQuestions: function(questions, pollId) {
+    var parsedQuestions = [];
+    questions = this.createDataHash(questions, undefined);
+    for (var key in questions) {
+      if (questions.hasOwnProperty(key)) {
+        questions[key]["poll_id"] = pollId;
+        var question = this.model.get("questions").get(key);
+        questions[key]["answers"] = this.parseAnswers(questions[key].answers, question);
+        if (question) {
+          questions[key]["id"] = question.id;
+        }
+        parsedQuestions.push(questions[key]);
+      }
+    }
+    return parsedQuestions;
+  },
 
-      console.log(question);
-
-      
-    });
-    
-    
-    
+  parseAnswers: function(answers, question) {
+    var parsedAnswers = [];
+    answers = this.createDataHash(answers, undefined);
+    for (var key in answers) {
+      if (answers.hasOwnProperty(key)) {
+      if (question) {
+        answers[key]["question_id"] = question.id;
+        var answer = question.get("answers").get(key);
+      }
+      if (answer) {
+        answers[key]["id"] = answer.id;
+      } 
+      parsedAnswers.push(answers[key]);
+      }
+    }
+    return parsedAnswers;
   },
 
   createDataHash: function(array, skipValue) {
     var currentQuestionId = 0;
     var data = {};
-    for (var i = 0; i < array.length; i++) {
-      if (array[i] != skipValue) {         
-        data[currentQuestionId] = array[i];
+    if (array && array.length > 0) {
+      for (var i = 0; i < array.length; i++) {
+        if (array[i] != skipValue) {         
+          data[currentQuestionId] = array[i];
+        }
+        currentQuestionId++;
       }
-      currentQuestionId++;
     }
     return data;
   },

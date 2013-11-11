@@ -29,7 +29,8 @@ class PollsController < ApplicationController
   end
 
   def update
-    @poll = Poll.find(params[:poll_id])
+    puts params
+    @poll = Poll.find(params[:id])
     if @poll.update_attributes(params[:poll])
       render :showRABL
     else

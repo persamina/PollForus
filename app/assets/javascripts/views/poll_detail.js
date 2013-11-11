@@ -38,18 +38,4 @@ PollForUs.Views.PollDetail = Backbone.View.extend({
     return this.colorOptions[Math.floor((Math.random()*this.colorOptions.length))];
   },
 
-  deletePoll: function(event) {
-    event.preventDefault();
-    var iconClicked = $(event.target);
-    var pollId = iconClicked.parent().data("pollId");
-    var pollToDelete = this.collection.get(pollId);
-    pollToDelete.destroy({
-      wait:true,
-      success: function(model, response) {
-        model.get("questions").forEach(function(question) {
-          PollForUs.allAnswers.remove(question.get("answers").models);
-        });
-      }
-
-
 });

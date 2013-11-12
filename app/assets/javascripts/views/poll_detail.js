@@ -10,7 +10,7 @@ PollForUs.Views.PollDetail = Backbone.View.extend({
     "click .delete-question": "deleteQuestion",
   },
 
-  colorOptions: ["#540D26", "#B8B4AD", "#007599", "#BC5A33", "#2C2C31", 
+  colorOptions: ["#B41338", "#B8B4AD", "#007599", "#BC5A33", "#2C2C31", 
                  "#00A4A3", "#E0B217", "#289E73", "#5C3F63", "#5A4A42"],
 
   render: function() {
@@ -18,23 +18,39 @@ PollForUs.Views.PollDetail = Backbone.View.extend({
     var renderedContent = this.template({ poll: this.model});
     this.$el.html(renderedContent);
     this.model.get("questions").forEach(function(question) {
-      pollDetail.setupChart(question);
+      var colors = pollDetail.generateColors(question);
+      pollDetail.setupChart(question, colors);
     });
     return this;
   },
-  setupChart: function(question) {
+  setupChart: function(question, colors) {
     var pollDetail = this;
     var ctx = this.$el.find("#question-results-" + question.id).get(0).getContext("2d");
     var myNewChart = new Chart(ctx);
     var data =[];
-
     question.get("answers").forEach(function(answer) {
-      data.push({value: answer.get("user_answers"), color: pollDetail.randomColor()});
+
+      data.push({value: answer.get("user_answers"), color: colors[answer.id]});
     });
     new Chart(ctx).Pie(data);
     
   },
-  randomColor: function(number) {
+  generateColors: function(question) {
+    var pollDetail = this;
+    colors = {};
+    colorsArray = [];
+    debugger
+    question.get("answers").forEach(function(answer) {
+      var currentColor = pollDetail.randomColor();
+      while (_.contains(colorsArray, currentColor) && colorsArray.length < 10) {
+        currentColor = pollDetail.randomColor();
+      }
+      colorsArray.push(currentColor);
+      colors[answer.id] = currentColor;
+    });
+    return colors;
+  },
+  randomColor: function(currentColors) {
     return this.colorOptions[Math.floor((Math.random()*this.colorOptions.length))];
   },
 

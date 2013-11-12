@@ -10,9 +10,8 @@ PollForUs.Views.PollDetail = Backbone.View.extend({
     "click .delete-question": "deleteQuestion",
   },
 
-  colorOptions: ["#D70060", "#3E7FC0", "#5EC010", "#01A4A4", "#132B42",
-                 "#8F3790", "#E54028", "#32742C", "#D0D102", "#113F8C",
-                 "#F18D05", "#FD1312", "#3F5514" ],
+  colorOptions: ["#540D26", "#B8B4AD", "#007599", "#BC5A33", "#2C2C31", 
+                 "#00A4A3", "#E0B217", "#289E73", "#5C3F63", "#5A4A42"],
 
   render: function() {
     var pollDetail = this;

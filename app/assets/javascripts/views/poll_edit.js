@@ -2,6 +2,9 @@ PollForUs.Views.PollEdit = Backbone.View.extend({
   template: JST["polls/new_edit"],
   addQuestionTemplate: JST["polls/add_question"],
   addAnswerTemplate: JST["polls/add_answer"],
+  addErrorsTemplate: JST["polls/add_errors"],
+  addNoticesTemplate: JST["polls/add_notices"],
+  addSuccessesTemplate: JST["polls/add_successes"],
   events: {
     "submit .new-poll-form": "submit",
     "click .add-question": "addQuestionButton",
@@ -38,30 +41,59 @@ PollForUs.Views.PollEdit = Backbone.View.extend({
     newPollValues.questions = this.parseQuestions(newPollValues.questions, this.model.id);
 
     var updatedPoll = new PollForUs.Models.Poll(newPollValues, {parse: true} );
-    this.model.set(updatedPoll );
-    this.model.save({}, {
-      wait: true,
-      success: function(poll) {
-        editView.model.get("questions").forEach(function(question) {
-          question.get("answers").forEach(function(answer) { 
-            var currentAnswer = PollForUs.allAnswers.get(answer.id);
-            if(currentAnswer) {
-              currentAnswer.set(answer);
-            } else {
-              PollForUs.allAnswers.add(answer);
+    var validationErrors = this.validatePoll(updatedPoll);
+
+    if (validationErrors.length < 1) {
+      this.model.set(updatedPoll );
+      this.model.save({}, {
+        wait: true,
+        success: function(poll) {
+          editView.model.get("questions").forEach(function(question) {
+            question.get("answers").forEach(function(answer) { 
+              var currentAnswer = PollForUs.allAnswers.get(answer.id);
+              if(currentAnswer) {
+                currentAnswer.set(answer);
+              } else {
+                PollForUs.allAnswers.add(answer);
+              }
+            });
+          });
+        },
+        error: function(model) {
+        },
+
+      });
+
+      Backbone.history.navigate("#/polls/" + this.model.id, {trigger: true});
+    } else {
+      var renderedContent = this.addErrorsTemplate({
+        errors: validationErrors
+      });
+      this.$el.find(".errors").html(renderedContent);
+    }
+  },
+
+  validatePoll: function(poll) {
+    var errors = [];
+    if (!poll.isValid()) {  
+      errors.push(poll.validationError);
+    }
+    if(poll.get("questions")) {
+      poll.get("questions").forEach(function(question) {
+        if(!question.isValid()) {
+          errors.push(question.validationError);
+        }
+        if(question.get("answers")) {
+          question.get("answers").forEach(function(answer) {
+            if(!answer.isValid()) {
+              errors.push(answer.validationError);
             }
           });
-        });
-      },
-      error: function(model) {
-
-        console.log("error updating");
-      },
-
-    });
-    
-    Backbone.history.navigate("#/polls/" + this.model.id, {trigger: true});
-  },
+        }
+      });
+    }
+    return errors;
+  }, 
 
   addQuestionButton: function(event) {
     event.preventDefault();
@@ -72,13 +104,13 @@ PollForUs.Views.PollEdit = Backbone.View.extend({
       var question = new PollForUs.Models.Question();
     }
     var qId = question.id
-    if(!question.id) {
-      qId = $(".questions").children().length;
-    }
+      if(!question.id) {
+        qId = $(".questions").children().length;
+      }
 
     var renderedContent = this.addQuestionTemplate({
       id: qId,
-      question: question 
+    question: question 
     });
 
     this.$el.find(".questions").append(renderedContent);
@@ -86,7 +118,7 @@ PollForUs.Views.PollEdit = Backbone.View.extend({
 
   deleteQuestion: function(event) {
     debugger
-    event.preventDefault();
+      event.preventDefault();
     var iconClicked = $(event.target);
     var questionId = iconClicked.parent().data("questionId");
     if(this.model.get("questions")) {
@@ -123,11 +155,11 @@ PollForUs.Views.PollEdit = Backbone.View.extend({
     if(!answer) {
       aId = numAnswers;
     }
-    
+
     var renderedContent = this.addAnswerTemplate({
       qId: qId,
-      aId: aId,
-      answer: answer
+        aId: aId,
+        answer: answer
     });
     answersDiv.append(renderedContent);
 
@@ -186,14 +218,14 @@ PollForUs.Views.PollEdit = Backbone.View.extend({
     answers = this.createDataHash(answers, undefined);
     for (var key in answers) {
       if (answers.hasOwnProperty(key)) {
-      if (question) {
-        answers[key]["question_id"] = question.id;
-        var answer = question.get("answers").get(key);
-      }
-      if (answer) {
-        answers[key]["id"] = answer.id;
-      } 
-      parsedAnswers.push(answers[key]);
+        if (question) {
+          answers[key]["question_id"] = question.id;
+          var answer = question.get("answers").get(key);
+        }
+        if (answer) {
+          answers[key]["id"] = answer.id;
+        } 
+        parsedAnswers.push(answers[key]);
       }
     }
     return parsedAnswers;

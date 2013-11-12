@@ -1,12 +1,28 @@
+
 <% if flash[:errors] %>
-  <% flash[:errors].each do |error| %>
-    <div class="error"><%= error %><div>
-  <% end %>
+  <div class="alert alert-error">  
+    <a class="close" data-dismiss="alert">×</a>  
+    <% flash[:errors].each do |error| %>
+      <h5> <%= error %> </h5>
+    <% end %>
+  </div>  
 <% end %>
 
 <% if flash[:notice] %>
-  <% flash[:notice].each do |notice| %>
-    <div class="notice"><%= notice%><div>
-  <% end %>
+  <div class="alert alert-block">  
+    <a class="close" data-dismiss="alert">×</a>  
+    <% flash[:notice].each do |notice| %>
+      <h5> <%= notice %> </h5>
+    <% end %>
+  </div> 
+<% end %>
+
+<% if flash[:successes] %>
+  <div class="alert alert-success">  
+  <a class="close" data-dismiss="alert">×</a>  
+    <% flash[:successes].each do |success| %>
+      <h5> <%= success %> </h5>
+    <% end %>
+  </div>  
 <% end %>
 

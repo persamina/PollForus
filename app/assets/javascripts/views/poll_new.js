@@ -2,6 +2,9 @@ PollForUs.Views.PollNew = Backbone.View.extend({
   template: JST["polls/new_edit"],
   addQuestionTemplate: JST["polls/add_question"],
   addAnswerTemplate: JST["polls/add_answer"],
+  addErrorsTemplate: JST["polls/add_errors"],
+  addNoticesTemplate: JST["polls/add_notices"],
+  addSuccessesTemplate: JST["polls/add_successes"],
   events: {
     "submit .new-poll-form": "submit",
     "click .add-question": "addQuestion",
@@ -26,21 +29,51 @@ PollForUs.Views.PollNew = Backbone.View.extend({
     event.preventDefault();
     var newPollValues = $(event.currentTarget).serializeJSON().poll;
     this.model = new PollForUs.Models.Poll(newPollValues, {parse: true} );
+    var validationErrors = this.validatePoll(this.model);
     
-    this.collection.create(this.model, {
-      wait: true,
-      success: function(poll) {
-        newView.model = poll;
-        newView.model.get("questions").forEach(function(question) {
-          PollForUs.allAnswers.add(question.get("answers").models);
-        });
-      },
-      error: function(poll) {
-      }
-    });
-    
-    Backbone.history.navigate("", {trigger: true});
+    if(validationErrors.length < 1) {
+      this.collection.create(this.model, {
+        wait: true,
+        success: function(poll) {
+          newView.model = poll;
+          newView.model.get("questions").forEach(function(question) {
+            PollForUs.allAnswers.add(question.get("answers").models);
+          });
+        },
+        error: function(poll) {
+        }
+      });
+
+      Backbone.history.navigate("", {trigger: true});
+    } else {
+      var renderedContent = this.addErrorsTemplate({
+        errors: validationErrors
+      });
+      this.$el.find(".errors").html(renderedContent);
+    }
   },
+
+  validatePoll: function(poll) {
+    var errors = [];
+    if (!poll.isValid()) {  
+      errors.push(poll.validationError);
+    }
+    if(poll.get("questions")) {
+      poll.get("questions").forEach(function(question) {
+        if(!question.isValid()) {
+          errors.push(question.validationError);
+        }
+        if(question.get("answers")) {
+          question.get("answers").forEach(function(answer) {
+            if(!answer.isValid()) {
+              errors.push(answer.validationError);
+            }
+          });
+        }
+      });
+    }
+    return errors;
+  }, 
 
   addQuestion: function(event) {
     event.preventDefault();
@@ -48,7 +81,7 @@ PollForUs.Views.PollNew = Backbone.View.extend({
     var question = new PollForUs.Models.Question();
     var renderedContent = this.addQuestionTemplate({
       id: (numQuestions),
-      question: question 
+        question: question 
     });
     $(".questions").append(renderedContent);
   },

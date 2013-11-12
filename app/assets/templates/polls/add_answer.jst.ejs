@@ -1,3 +1,12 @@
-<li class="answer" id="a<%= aId %>">
-  <input type="text" class="input-xlarge" name="poll[questions][<%= qId %>][answers][<%= aId %>][body]" placeholder="Answer" value="<%= answer.get("body") %>">
+<li class="answer form-inline" id="a<%= aId %>">
+  <input type="text" 
+         class="input-xlarge" 
+         name="poll[questions][<%= qId %>][answers][<%= aId %>][body]" 
+         placeholder="Answer" 
+         value="<%= answer.get("body") %>"
+  >
+  <a href="#" class="delete-answer no-underline"
+    data-answer-id="<%= aId %>" data-question-id="<%= qId %>">
+    <i class="icon-remove"></i>
+  </a> 
 </li>

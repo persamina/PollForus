@@ -39,11 +39,4 @@ PollForUs.Views.PollIndex = Backbone.View.extend({
 
   },
 
-  editPoll: function(event) {
-    var iconClicked = $(event.target);
-    var pollId = iconClicked.parent().data("pollId");
-    var pollToDelete = this.collection.get(pollId);
-    console.log("edit me");
-
-  }
 });

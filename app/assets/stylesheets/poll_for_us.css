@@ -27,6 +27,9 @@ div.poll-buttons {
 ul.answers {
  list-style-type: none;
 }
+li.answer {
+  margin: 10px;
+}
 
 li.live-answer {
   margin-top: 15px;
@@ -54,8 +57,10 @@ div.question {
   width: 450px;
   height: 300px;
   float: left;
+  position: relative;
   overflow: auto;
 }
+
 ul.answers {
   float: left;
 }
@@ -70,12 +75,21 @@ div.live-question {
   border-radius: 10px;
   background-color: #fff;
   border-bottom-width: 3px;
-  padding: 20px 20px;
+  padding: 5px 20px 20px 20px;
   margin: 10px 20px 10px 0px;
   width: 750px;
   float: left;
   float: left;
+  position: relative;
   overflow: auto;
+}
+
+.pos-upper-right {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 16px;
+
 }
 
 .after-questions {

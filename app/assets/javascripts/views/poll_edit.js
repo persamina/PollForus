@@ -5,7 +5,9 @@ PollForUs.Views.PollEdit = Backbone.View.extend({
   events: {
     "submit .new-poll-form": "submit",
     "click .add-question": "addQuestionButton",
-    "click .add-answer": "addAnswerButton"
+    "click .delete-question": "deleteQuestion",
+    "click .add-answer": "addAnswerButton",
+    "click .delete-answer": "deleteAnswer",
   },
   
   render: function() {
@@ -82,6 +84,28 @@ PollForUs.Views.PollEdit = Backbone.View.extend({
     this.$el.find(".questions").append(renderedContent);
   },
 
+  deleteQuestion: function(event) {
+    debugger
+    event.preventDefault();
+    var iconClicked = $(event.target);
+    var questionId = iconClicked.parent().data("questionId");
+    if(this.model.get("questions")) {
+      var questionToDelete = this.model.get("questions").get(questionId);
+    }
+    if (questionToDelete) {
+      questionToDelete.destroy({
+        wait:true,
+        success: function(model, response) {
+          PollForUs.allAnswers.remove(model.get("answers").models);
+          $(".question#q"+questionId).remove();
+        }
+      });
+    } else {
+      $(".question#q"+questionId).remove();
+    }
+
+  },
+
   addAnswerButton: function(event) {
     event.preventDefault();
     var addAnswerButton = $(event.currentTarget);
@@ -107,6 +131,37 @@ PollForUs.Views.PollEdit = Backbone.View.extend({
     });
     answersDiv.append(renderedContent);
 
+  },
+
+  deleteAnswer: function(event) {
+    debugger;
+    event.preventDefault();
+    var iconClicked = $(event.target);
+    var questionId = iconClicked.parent().data("questionId");
+    var answerId = iconClicked.parent().data("answerId");
+
+    if(this.model.get("questions")) {
+      var question = this.model.get("questions").get(questionId);
+    }
+    if (question) {
+      var answer = question.get("answers").get(answerId);
+      if (answer) {
+        answer.destroy({
+          wait:true,
+          success: function(model, response) {
+            PollForUs.allAnswers.remove(model);
+            var questionDiv = $(".question#q"+questionId);
+            questionDiv.find(".answer#a"+answerId).remove();
+          }
+        });
+      } else {
+        var questionDiv = $(".question#q"+questionId);
+        questionDiv.find(".answer#a"+answerId).remove();
+      }
+    } else {
+      var questionDiv = $(".question#q"+questionId);
+      questionDiv.find(".answer#a"+answerId).remove();
+    }
   },
 
   parseQuestions: function(questions, pollId) {

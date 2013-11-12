@@ -7,7 +7,7 @@ class AnswersController < ApplicationController
   end
 
   def create 
-    @answer = Poll.new(params[:answer]);
+    @answer = Answer.new(params[:answer]);
     if @answer.save
       render :json => @answer
     else
@@ -16,7 +16,7 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @answer = Poll.find(params[:answer_id]);
+    @answer = Answer.find(params[:answer_id]);
     if @answer.update_attributes(params[:answer])
       render :json => @answer
     else
@@ -25,7 +25,7 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    @answer = Question.find(params[:id]);
+    @answer = Answer.find(params[:id]);
     if @answer
       @answer.destroy
     end

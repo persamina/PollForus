@@ -1,4 +1,8 @@
 <div class="question" id="q<%= id %>">
+  <a href="#" class="delete-question no-underline pos-upper-right"
+    data-question-id="<%= id %>">
+    <i class="icon-remove"></i>
+  </a> 
   <div class="form-inline">
   <input type="text" class="input-xlarge" name="poll[questions][<%= id %>][body]" placeholder="Question" value="<%= question.get("body") %>">
   <a href="#" class="add-answer btn btn-primary" data-q-id="<%=id%>" id="q<%=id%>">Add Answer</a>

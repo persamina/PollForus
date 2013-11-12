@@ -1,16 +1,20 @@
 class TextMessagesController < ApplicationController
 
   def receive_text_message
+    puts "MESSAGE RECEIVED ANTTI"
     @message_text = params["Body"].gsub(/\s+/, "")    
     @from_phone_number = params["From"]
     @message = "You didn't send us a number please try again!"
     if is_i?(@message_text)
+      puts "IS NUMBER ANTTI"
       @answer_id = @message_text.to_i
       @question_id = Answer.find(@answer_id).question_id;
       @answer_choice = AnswerChoice.new(answer_id: @answer_id, question_id: @question_id, phone_number: params["From"])
       if @answer_choice.valid?
+        puts "ANSWER VALID ANTTI"
         if(AnswerChoice.where("question_id = '#{@question_id}' AND phone_number = '#{@from_phone_number}'").count < 1)
         @answer_choice.save
+        puts "ANSWER SAVED ANTTI"
         #@poll_id = @answer_choice.answer.question.poll.id
         sendPusherEvent(@answer_choice)
         @message = "You voted! :) you texted us '#{@answer_id}'."

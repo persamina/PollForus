@@ -6,15 +6,19 @@ class TextMessagesController < ApplicationController
     @message = "You didn't send us a number please try again!"
     if is_i?(@message_text)
       @answer_id = @message_text.to_i
-      @answer_choice = AnswerChoice.new(answer_id: @answer_id, phone_number: params["From"])
+      @question_id = Answer.find(@answer_id).question_id;
+      @answer_choice = AnswerChoice.new(answer_id: @answer_id, question_id: @question_id, phone_number: params["From"])
       if @answer_choice.valid?
+        if(AnswerChoice.where("question_id = '#{@question_id}' AND phone_number = '#{@from_phone_number}'").count < 1)
         @answer_choice.save
         #@poll_id = @answer_choice.answer.question.poll.id
         sendPusherEvent(@answer_choice)
-
         @message = "You voted! :) you texted us '#{@answer_id}'."
+        else
+          @message = "You can't vote again. :)"
+        end
       else
-        @message = "Invalid number or you may have already voted! please try again!"
+        @message = "Invalid number or you may have already voted!"
        
       end
     end

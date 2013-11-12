@@ -101,6 +101,9 @@ div.live-question {
   clear: both;
 }
 
+div.navbar-button {
+  margin-top: 15px;
+}
 div.sign-in-form {
   margin-left: auto;
   margin-right: auto;

@@ -21,6 +21,11 @@ PollForUs.Views.PollDetail = Backbone.View.extend({
       var colors = pollDetail.generateColors(question);
       pollDetail.setupChart(question, colors);
     });
+    for (var key in colors) {
+      if (colors.hasOwnProperty(key)) {
+        this.$el.find(".answer-color#a"+key).css('background', colors[key]);
+      }
+    }
     return this;
   },
   setupChart: function(question, colors) {
@@ -33,7 +38,7 @@ PollForUs.Views.PollDetail = Backbone.View.extend({
       data.push({value: answer.get("user_answers"), color: colors[answer.id]});
     });
     new Chart(ctx).Pie(data);
-    
+
   },
   generateColors: function(question) {
     var pollDetail = this;

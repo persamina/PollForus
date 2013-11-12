@@ -29,6 +29,15 @@ a.logo {
   margin: 0;
 }
 
+div.answer-color {
+  height: 15px;
+  width: 15px;
+  float: left;
+  margin: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
 ul.answers {
  list-style-type: none;
 }

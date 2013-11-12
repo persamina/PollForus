@@ -1,6 +1,6 @@
 <h1> <%= poll.escape("name") %> </h1>
 
-<h3> Text +1 928-237-4477 the text code for the answer 
+<h3> Send the Answer Text Code to <strong>+1 928-237-4477</strong>
     <a href="#/polls/<%= poll.id %>/edit" class="edit-poll no-underline" data-poll-id="<%= poll.id %>">
       <i class="icon-edit"></i>
     </a> 
@@ -19,7 +19,8 @@
       <canvas class="results-chart" id="question-results-<%= question.id %>" width="250" height="250"></canvas>
       <ul class="answers">
         <% question.get("answers").forEach(function(answer) { %>
-        <li class="live-answer">
+        <li class="live-answer" id="a<%= answer.id %>">
+          <div class="answer-color" id="a<%= answer.id %>"></div>
           <%= answer.escape("body") %>
           Text Code: <%= answer.id %>
           (<%= answer.get("user_answers")%>)

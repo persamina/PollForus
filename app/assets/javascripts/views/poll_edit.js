@@ -114,11 +114,13 @@ PollForUs.Views.PollEdit = Backbone.View.extend({
     });
 
     this.$el.find(".questions").append(renderedContent);
+    var questionDiv = $(".question#q"+qId);
+    questionDiv.hide();
+    questionDiv.fadeIn(500);
   },
 
   deleteQuestion: function(event) {
-    debugger
-      event.preventDefault();
+    event.preventDefault();
     var iconClicked = $(event.target);
     var questionId = iconClicked.parent().data("questionId");
     if(this.model.get("questions")) {
@@ -129,12 +131,13 @@ PollForUs.Views.PollEdit = Backbone.View.extend({
         wait:true,
         success: function(model, response) {
           PollForUs.allAnswers.remove(model.get("answers").models);
-          $(".question#q"+questionId).remove();
         }
       });
-    } else {
+    } 
+    $(".question#q"+questionId).fadeOut( "medium", function() {
       $(".question#q"+questionId).remove();
-    }
+    });
+    
 
   },
 
@@ -147,12 +150,11 @@ PollForUs.Views.PollEdit = Backbone.View.extend({
   },
 
   addAnswer: function(qId, answer) {
-    var answersString = ".answers#q"+qId;
-    var answersDiv = this.$el.find(answersString);
+    var answersDiv = this.$el.find(".answers#q"+qId);
 
     var numAnswers = answersDiv.children().length;
     var aId = answer.id;
-    if(!answer) {
+    if(!aId) {
       aId = numAnswers;
     }
 
@@ -162,11 +164,13 @@ PollForUs.Views.PollEdit = Backbone.View.extend({
         answer: answer
     });
     answersDiv.append(renderedContent);
+    var questionDiv = $(".question#q"+qId);
+    questionDiv.find(".answer#a"+aId).hide();
+    questionDiv.find(".answer#a"+aId).fadeIn(500);
 
   },
 
   deleteAnswer: function(event) {
-    debugger;
     event.preventDefault();
     var iconClicked = $(event.target);
     var questionId = iconClicked.parent().data("questionId");
@@ -182,18 +186,15 @@ PollForUs.Views.PollEdit = Backbone.View.extend({
           wait:true,
           success: function(model, response) {
             PollForUs.allAnswers.remove(model);
-            var questionDiv = $(".question#q"+questionId);
-            questionDiv.find(".answer#a"+answerId).remove();
           }
         });
-      } else {
-        var questionDiv = $(".question#q"+questionId);
-        questionDiv.find(".answer#a"+answerId).remove();
       }
-    } else {
-      var questionDiv = $(".question#q"+questionId);
+    } 
+    var questionDiv = $(".question#q"+questionId);
+    questionDiv.find(".answer#a"+answerId).fadeOut("medium", function() {
       questionDiv.find(".answer#a"+answerId).remove();
-    }
+    });
+    
   },
 
   parseQuestions: function(questions, pollId) {

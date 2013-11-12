@@ -39,7 +39,6 @@ PollForUs.Views.PollDetail = Backbone.View.extend({
     var pollDetail = this;
     colors = {};
     colorsArray = [];
-    debugger
     question.get("answers").forEach(function(answer) {
       var currentColor = pollDetail.randomColor();
       while (_.contains(colorsArray, currentColor) && colorsArray.length < 10) {
@@ -73,10 +72,10 @@ PollForUs.Views.PollDetail = Backbone.View.extend({
   },
   deleteQuestion: function(event) {
     event.preventDefault();
-    debugger
     var iconClicked = $(event.target);
     var questionId = iconClicked.parent().data("questionId");
     var questionToDelete = this.model.get("questions").get(questionId);
+
     questionToDelete.destroy({
       wait:true,
       success: function(model, response) {

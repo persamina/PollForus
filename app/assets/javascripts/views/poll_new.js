@@ -84,6 +84,9 @@ PollForUs.Views.PollNew = Backbone.View.extend({
         question: question 
     });
     $(".questions").append(renderedContent);
+    var questionDiv = $(".question#q"+numQuestions);
+    questionDiv.hide();
+    questionDiv.fadeIn(500);
   },
 
   deleteQuestion: function(event) {
@@ -100,9 +103,11 @@ PollForUs.Views.PollNew = Backbone.View.extend({
           PollForUs.allAnswers.remove(model.get("answers").models);
         }
       });
-    } else {
+    } 
+    $(".question#q"+questionId).fadeOut( "medium", function() {
       $(".question#q"+questionId).remove();
-    }
+    });
+    
 
   },
 
@@ -121,6 +126,9 @@ PollForUs.Views.PollNew = Backbone.View.extend({
         answer: answer
     });
     answersDiv.append(renderedContent);
+    var questionDiv = $(".question#q"+qId);
+    questionDiv.find(".answer#a"+numAnswers).hide();
+    questionDiv.find(".answer#a"+numAnswers).fadeIn(500);
   },
 
   deleteAnswer: function(event) {
@@ -141,14 +149,12 @@ PollForUs.Views.PollNew = Backbone.View.extend({
             PollForUs.allAnswers.remove(model);
           }
         });
-      } else {
-        var questionDiv = $(".question#q"+questionId);
-        questionDiv.find(".answer#a"+answerId).remove();
-      }
-    } else {
-      var questionDiv = $(".question#q"+questionId);
+      } 
+    } 
+    var questionDiv = $(".question#q"+questionId);
+    questionDiv.find(".answer#a"+answerId).fadeOut("medium", function() {
       questionDiv.find(".answer#a"+answerId).remove();
-    }
+    });
   },
 
 

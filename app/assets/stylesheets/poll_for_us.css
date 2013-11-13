@@ -24,6 +24,44 @@ div.poll-buttons {
   vertical-align: middle;
 }
 
+div.icon-container {
+  width: 100%;
+  height: auto;
+  text-align: center;
+  font-size: 150px;
+  display: inline-block;
+}
+
+.centered-text {
+  margin-top: 35px;
+  text-align: center;
+}
+
+.icon-center {
+  position: relative;
+}
+
+.icon-check {
+  color: #289E73;
+}
+
+.icon-users {
+  font-family: FontAwesome;
+  color: #289E73;
+}
+.icon-users:before {
+  content: "\f0c0";
+}
+
+.icon-phone {
+  font-family: FontAwesome;
+  color: #289E73;
+}
+
+.icon-phone:before {
+  content: "\f095";
+}
+
 a.logo {
   padding: 0;
   margin: 0;
@@ -114,8 +152,9 @@ div.navbar-button {
   margin-top: 15px;
 }
 div.sign-in-form {
-  margin-left: auto;
-  margin-right: auto;
+  position: relative;
+  margin: 0 auto;
+  width: 215px;
 }
 
 div.new-poll {

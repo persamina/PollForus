@@ -66,6 +66,7 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 
+  gem 'font-awesome-less'
   gem 'twitter-bootstrap-rails'
 end
 

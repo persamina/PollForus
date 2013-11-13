@@ -83,6 +83,8 @@ GEM
     figaro (0.7.0)
       bundler (~> 1.0)
       rails (>= 3, < 5)
+    font-awesome-less (4.0.2)
+      less-rails (>= 2.4.2)
     hike (1.2.3)
     httpclient (2.3.4.1)
     i18n (0.6.5)
@@ -211,6 +213,7 @@ DEPENDENCIES
   delayed_job_active_record
   ejs
   figaro
+  font-awesome-less
   jquery-rails
   less-rails
   letter_opener

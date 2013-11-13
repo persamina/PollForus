@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131112193338) do
+ActiveRecord::Schema.define(:version => 20131113061153) do
 
   create_table "answer_choices", :force => true do |t|
     t.integer  "answer_id",    :null => false
@@ -32,6 +32,22 @@ ActiveRecord::Schema.define(:version => 20131112193338) do
   end
 
   add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0, :null => false
+    t.integer  "attempts",   :default => 0, :null => false
+    t.text     "handler",                   :null => false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "polls", :force => true do |t|
     t.string   "name",       :null => false
@@ -62,11 +78,13 @@ ActiveRecord::Schema.define(:version => 20131112193338) do
   add_index "sessions", ["user_id"], :name => "index_sessions_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "username",        :null => false
-    t.string   "email",           :null => false
-    t.string   "password_digest", :null => false
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.string   "username",                           :null => false
+    t.string   "email",                              :null => false
+    t.string   "password_digest",                    :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.string   "confirm_token"
+    t.boolean  "verified",        :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -9,9 +9,13 @@ gem 'rails', '3.2.14'
 #postgresql
 gem 'pg'
 
+#sending async commands to backbone
 gem 'pusher'
 
+#keeping keys and passwords private
 gem 'figaro'
+
+gem 'delayed_job_active_record'
 
 #twilio api
 gem 'twilio-ruby'

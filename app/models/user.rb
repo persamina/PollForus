@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :password, :username
+  attr_accessible :email, :password, :username, :confirm_token
   attr_reader :password
 
-  validates :email, :password, :username, presence: true
+  validates :email, :username, presence: true
   validates :password, length: {minimum: 5, allow_nil: true }
   validates :email, uniqueness: true
   validates :username, uniqueness: true
@@ -10,10 +10,15 @@ class User < ActiveRecord::Base
   has_many :polls, :dependent => :destroy, :inverse_of => :user
   has_many :sessions, :dependent => :destroy
 
-  after_create :require_session_token
+  before_validation :create_confirm_token
+  #after_create :require_session_token
 
-  def require_session_token
-    Session.create(user_id: self.id);
+  #def require_session_token
+    #Session.create(user_id: self.id);
+  #end
+  
+  def create_confirm_token
+    self.confirm_token = self.class.generate_confirm_token
   end
 
   def password=(password)
@@ -32,6 +37,14 @@ class User < ActiveRecord::Base
   def self.generate_session_token
     token = SecureRandom::urlsafe_base64
     while User.where("session_token = '#{token}'").count > 0
+      token = SecureRandom::urlsafe_base64
+    end
+    token
+  end
+
+  def self.generate_confirm_token
+    token = SecureRandom::urlsafe_base64
+    while User.where("confirm_token = '#{token}'").count > 0
       token = SecureRandom::urlsafe_base64
     end
     token

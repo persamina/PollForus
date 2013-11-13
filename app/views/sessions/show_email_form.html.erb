@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="span4 column1"></div>
+    <div class="span4 column2">
+      <div class="email-form">
+        <form class="form-email" action="<%= reset_email_session_url %>" method="POST">
+          <h2 class="form-email-heading">Enter Email Address</h2>
+          <p> Forgot your password? No worries, enter your email address and you'll be on your way to resetting it and getting back to creating polls!"</p>
+          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+          <input type="text" name="email" placeholder="Email">
+          <br>
+
+          <button class="btn btn-primary" type="submit">Submit</button> 
+        </form>
+      </div>
+    </div>
+    <div class="span4 column3"></div>
+  </div>
+</div>

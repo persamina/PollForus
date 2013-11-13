@@ -1,16 +1,16 @@
 <div class="container">
   <div class="row row-top">
     <div class="span4 column1">
-      <h2 class="centered-text">Poll your Audience Live</h2>
+      <h3 class="centered-text">Engage your Audience</h3>
       <div class="icon-container">
           <i class="icon-users icon-center"></i>
       </div>
-      <h2 class="centered-text">Display Results in Realtime</h2>
+      <h3 class="centered-text">Poll them Live</h3>
     </div>
     <div class="span4 column2">
       <div class="sign-in-form centered">
         <form class="form-signin" action="<%= session_url %>" method="POST">
-          <h2 class="form-signin-heading">Please sign in</h2>
+          <h3 class="form-signin-heading">Please Sign in</h3>
           <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
           <input type="text" name="user[email]" placeholder="Email">
@@ -23,14 +23,19 @@
           <br>
 
           <button class="btn btn-primary" type="submit">Sign In</button> 
+          <%= link_to "Sign Up", new_user_url, class: "btn btn-primary" %>
+          <br>
+          <br>
+          <%= link_to "Guest", guest_login_session_url, class: "btn btn-primary" %>
         </form>
       </div>
     </div>
     <div class="span4 column3">
-      <h2 class="centered-text">Audience Texts by Phone</h2>
+      <h3 class="centered-text">Audience Texts Vote</h3>
       <div class="icon-container">
         <i class="icon-phone icon-center"></i>
       </div>
+      <h3 class="centered-text">Results Displayed in Realtime</h3>
     </div>
   </div>
 </div>

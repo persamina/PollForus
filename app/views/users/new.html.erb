@@ -1,18 +1,26 @@
 <div class="container">
-  <form action="<%= users_url %>" method="POST">
-    <h3>Sign Up</h3>
-    <label for="email">Email</label>
-    <input type="text" name="user[email]" id="email">
-    <br>
+  <div class="row row-top">
+    <div class="span4 column1">
+    </div>
+    <div class="span4 column2">
+      <form action="<%= users_url %>" method="POST">
+        <h3>Sign Up</h3>
+        <label for="email">Email</label>
+        <input type="text" name="user[email]" id="email">
+        <br>
 
-    <label for="username">Username</label>
-    <input type="text" name="user[username]" id="username">
-    <br>
+        <label for="username">Username</label>
+        <input type="text" name="user[username]" id="username">
+        <br>
 
-    <label for="password">Password</label>
-    <input type="password" name="user[password]" id="password">
-    <br>
+        <label for="password">Password</label>
+        <input type="password" name="user[password]" id="password">
+        <br>
 
-    <input class="btn btn-primary" type="submit" value="Sign Up">
-  </form>
+        <input class="btn btn-primary" type="submit" value="Sign Up">
+      </form>
+    </div>
+    <div class="span4 column2">
+    </div>
+  </div>
 </div>

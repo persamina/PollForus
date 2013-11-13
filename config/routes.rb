@@ -14,6 +14,7 @@ PollForUs::Application.routes.draw do
     post :reset_email
     get :show_reset_password
     post :reset_password
+    get :guest_login
   end
 
   resources :polls, only: [:index, :create, :update, :destroy]

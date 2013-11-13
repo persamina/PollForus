@@ -17,10 +17,22 @@ class SessionsController < ApplicationController
       flash.now[:errors] = ["Invalid email or password"]
       unless (@user && @user.verified) 
         flash.now[:errors] = ["This email hasn't been verified please 
-                               check email or user 'Forgot Password' 
+                               check email or use 'Forgot Password' 
                                to continue"]
       end
       render :new
+    end
+  end
+
+  def guest_login
+    @user = User.find_by_email("pollforusemail@gmail.com")
+    if @user
+      @session = Session.create(user_id: @user.id)
+      session[:session_token] = @session.session_token
+      redirect_to :root
+    else
+      flash[:errors] = ["Guest account disabled, please sign up to continue."]
+      redirect_to new_user_url
     end
   end
 

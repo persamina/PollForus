@@ -2,19 +2,24 @@ class PollsController < ApplicationController
   layout "backbone"
   respond_to :json
 
-  before_filter :require_login
+  before_filter :require_login, :except => [:index]
 
   def require_login
     redirect_to new_session_url unless current_user  
   end
 
   def index 
-    @polls = Poll.includes(:questions => {:answers => :answer_choices}).where(:user_id => current_user.id)
+
+    if current_user
+      @polls = Poll.includes(:questions => {:answers => :answer_choices}).where(:user_id => current_user.id)
+    end
 
     #@polls = Poll.find_all_by_user_id(current_user.id)
-    respond_to do |format|
-      format.html { render :index }
-      format.json { render :indexRABL }
+    if(@polls)
+      respond_to do |format|
+        format.html { render :index }
+        format.json { render :indexRABL }
+      end
     end
   end
 

@@ -16,16 +16,3 @@
     <input type="submit" value="Sign Up">
   </form>
 </div>
-
-  <form class="form-signin" action="<%= session_url %>" method="POST">
-    <h2 class="form-signin-heading">Please sign in</h2>
-    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-
-    <input type="text" name="user[email]" placeholder="Email">
-    <br>
-
-    <input type="password" name="user[password]" placeholder="Password">
-    <br>
-
-    <button class="btn btn-primary" type="submit">Sign In</button> 
-  </form>

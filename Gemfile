@@ -28,6 +28,7 @@ group :development do
   gem 'meta_request'
   gem 'binding_of_caller'
   gem 'debugger'
+  gem 'letter_opener'
 end
 
 #for JST templates

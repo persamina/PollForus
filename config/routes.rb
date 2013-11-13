@@ -1,5 +1,6 @@
 PollForUs::Application.routes.draw do
   resources :users, only: [:new, :create, :show] do
+    post :confirm_email
   end
 
   resource :text_messages, :only => [] do 

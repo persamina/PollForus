@@ -20,12 +20,13 @@ PollForUs.Views.PollDetail = Backbone.View.extend({
     this.model.get("questions").forEach(function(question) {
       var colors = pollDetail.generateColors(question);
       pollDetail.setupChart(question, colors);
-    });
-    for (var key in colors) {
-      if (colors.hasOwnProperty(key)) {
-        this.$el.find(".answer-color#a"+key).css('background', colors[key]);
+
+      for (var key in colors) {
+        if (colors.hasOwnProperty(key)) {
+          pollDetail.$el.find(".answer-color#a"+key).css('background', colors[key]);
+        }
       }
-    }
+    });
     return this;
   },
   setupChart: function(question, colors) {

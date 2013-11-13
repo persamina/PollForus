@@ -41,4 +41,13 @@ PollForUs::Application.configure do
   Pusher.secret = ENV["DEV_PUSHER_SECRET"]
 
   config.action_mailer.default_url_options = { host: 'http://www.localhost:3000' }
+
+  #config.paperclip_defaults = {
+    #:storage => :s3,
+    #:s3_credentials => {
+    #:bucket => "pollforus-dev",
+    #:access_key_id => YOUR_ACCESS_KEY_ID,
+    #:secret_access_key => YOUR_SECRET_ACCESS_KEY,
+    #:s3_host_name => 's3-us-west-1.amazonaws.com' # or whatever your region host name is
+  #}
 end

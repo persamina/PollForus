@@ -17,7 +17,8 @@ gem 'figaro'
 
 gem 'delayed_job_active_record'
 
-gem 'filepicker-rails'
+gem "paperclip"
+gem "aws-sdk"
 
 #twilio api
 gem 'twilio-ruby'

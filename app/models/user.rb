@@ -11,11 +11,17 @@ class User < ActiveRecord::Base
   has_many :sessions, :dependent => :destroy
 
   before_validation :create_confirm_token
+  before_validation :remove_whitespace
   #after_create :require_session_token
 
   #def require_session_token
     #Session.create(user_id: self.id);
   #end
+  #
+  def remove_whitespace
+    self.email.strip!
+    self.username.strip!
+  end
   
   def create_confirm_token
     self.confirm_token = self.class.generate_confirm_token
@@ -23,6 +29,7 @@ class User < ActiveRecord::Base
 
   def password=(password)
     @password = password
+    @password.strip!
     self.password_digest = BCrypt::Password.create(password) 
   end
 

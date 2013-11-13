@@ -5,14 +5,17 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by_credentials(params[:user][:email], params[:user][:password]);
+    @email = params[:user][:email]
+    @email.strip!
+    @password = params[:user][:password] 
+    @user = User.find_by_credentials(@email, @password);
     if @user && @user.verified
       @session = Session.create(user_id: @user.id)
       session[:session_token] = @session.session_token
       redirect_to :root
     else
       flash.now[:errors] = ["Invalid email or password"]
-      unless (@user.verified) 
+      unless (@user && @user.verified) 
         flash.now[:errors] = ["This email hasn't been verified please 
                                check email or user 'Forgot Password' 
                                to continue"]

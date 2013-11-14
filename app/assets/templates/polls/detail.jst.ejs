@@ -1,20 +1,24 @@
 <h1> <%= poll.escape("name") %> </h1>
 
 <h3> Send the Answer Text Code to <strong>+1 928-237-4477</strong>
+    <% if (PollForUs.currentUser.get("id") === poll.get("user_id")) { %>
     <a href="#/polls/<%= poll.id %>/edit" class="edit-poll no-underline" data-poll-id="<%= poll.id %>">
       <i class="icon-edit"></i>
     </a> 
     <a href="#" class="delete-poll no-underline" data-poll-id="<%= poll.id %>">
       <i class="icon-remove"></i>
     </a> 
+    <% } %>
 </h3>
 <div class="questions">
     <% poll.get("questions").forEach(function(question) { %>
     <div class="live-question" id="<%= question.id %>">
-      <a href="#" class="delete-question no-underline pos-upper-right"
-        data-question-id="<%= question.id %>">
-        <i class="icon-remove"></i>
-      </a> 
+      <% if (PollForUs.currentUser.get("id") === poll.get("user_id")) { %>
+        <a href="#" class="delete-question no-underline pos-upper-right"
+          data-question-id="<%= question.id %>">
+          <i class="icon-remove"></i>
+        </a> 
+      <% } %>
       <h3><%= question.escape("body") %></h3>
       <canvas class="results-chart" id="question-results-<%= question.id %>" width="250" height="250"></canvas>
       <ul class="answers">

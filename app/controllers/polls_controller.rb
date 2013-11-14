@@ -2,7 +2,7 @@ class PollsController < ApplicationController
   layout "backbone"
   respond_to :json
 
-  before_filter :require_login, :except => [:index]
+  before_filter :require_login, :except => [:index, :show]
 
   def require_login
     redirect_to new_session_url unless current_user  
@@ -11,6 +11,8 @@ class PollsController < ApplicationController
   def index 
 
     if current_user
+      #allows us to use @current_user in userRABL file
+      @current_user = current_user
       @polls = Poll.includes(:questions => {:answers => :answer_choices}).where(:user_id => current_user.id)
     end
 
@@ -33,8 +35,16 @@ class PollsController < ApplicationController
     end
   end
 
+  def show 
+    @poll = Poll.find(params[:id])
+    if @poll
+      render :showRABL
+    else
+      render 422
+    end
+  end
+
   def update
-    puts params
     @poll = Poll.find(params[:id])
     if @poll.update_attributes(params[:poll])
       render :showRABL

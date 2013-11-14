@@ -1,5 +1,8 @@
-<script type="application/json" id="bootstrapped-data">
+<script type="application/json" id="polls-data">
   <%= (render(:file => 'polls/indexRABL.rabl')).html_safe %>
+</script>
+<script type="application/json" id="current-user-data">
+  <%= (render(:file => 'layouts/userRABL.rabl')).html_safe %>
 </script>
 <div class="content container">
 </div>

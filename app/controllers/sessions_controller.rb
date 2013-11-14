@@ -1,7 +1,11 @@
 class SessionsController < ApplicationController
 
   def new
-    render :new
+    if current_user
+      redirect_to polls_url
+    else
+      render :new
+    end
   end
 
   def create
@@ -10,9 +14,14 @@ class SessionsController < ApplicationController
     @password = params[:user][:password] 
     @user = User.find_by_credentials(@email, @password);
     if @user && @user.verified
+      # so rabl can be rendered correctly
+      @current_user = @user
       @session = Session.create(user_id: @user.id)
       session[:session_token] = @session.session_token
-      redirect_to :root
+      respond_to do |format|
+        format.html { redirect_to polls_url }
+        format.json { render "layouts/userRABL" }
+      end
     else
       flash.now[:errors] = ["Invalid email or password"]
       unless (@user && @user.verified) 
@@ -29,7 +38,7 @@ class SessionsController < ApplicationController
     if @user
       @session = Session.create(user_id: @user.id)
       session[:session_token] = @session.session_token
-      redirect_to :root
+      redirect_to polls_url
     else
       flash[:errors] = ["Guest account disabled, please sign up to continue."]
       redirect_to new_user_url
@@ -40,7 +49,7 @@ class SessionsController < ApplicationController
     if (current_user)
       logout_current_user!
     end 
-    redirect_to new_session_url
+    redirect_to root_url
   end
 
   def sign_out
@@ -83,10 +92,10 @@ class SessionsController < ApplicationController
       Session.create(user_id: @user.id)
       set_session_token_cookie(@user)
       flash[:successes] = [ "Password Reset!" ]
-      redirect_to root_url
+      redirect_to polls_url
     else
       flash[:errors] = [ "Unable to Reset Password! Please try again." ]
-      redirect_to new_session_url
+      redirect_to root_url
     end
     
   end

@@ -64,7 +64,7 @@ PollForUs.Views.PollEdit = Backbone.View.extend({
 
       });
 
-      Backbone.history.navigate("#/polls/" + this.model.id, {trigger: true});
+      Backbone.history.navigate("#/" + this.model.id, {trigger: true});
     } else {
       var renderedContent = this.addErrorsTemplate({
         errors: validationErrors

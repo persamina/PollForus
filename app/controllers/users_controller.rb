@@ -31,7 +31,7 @@ class UsersController < ApplicationController
       Session.create(user_id: @user.id)
       set_session_token_cookie(@user)
       flash[:successes] = [ "Email confirmed!" ]
-      redirect_to root_url
+      redirect_to polls_url
     else
       flash[:errors] = [ "Unable to Confirm! Please use the 'Forgot Password' to reset password." ]
       redirect_to new_session_url

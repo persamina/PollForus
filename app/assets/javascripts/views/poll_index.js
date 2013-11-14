@@ -8,18 +8,24 @@ PollForUs.Views.PollIndex = Backbone.View.extend({
   },
 
   template: JST["polls/index"],
+  signInTemplate: JST["session/new"],
 
   render: function() {
     var pollIndex = this;
-    var renderedContent = this.template();
-    this.$el.html(renderedContent);
 
-    this.collection.forEach(function(poll) {
-      var pollDetail = new PollForUs.Views.PollDetailList({
-        model: poll
+    if(PollForUs.currentUser) {
+      var renderedContent = this.template();
+      this.$el.html(renderedContent);
+      this.collection.forEach(function(poll) {
+        var pollDetail = new PollForUs.Views.PollDetailList({
+          model: poll
+        });
+        pollIndex.$(".polls").append(pollDetail.render().$el);
       });
-      pollIndex.$(".polls").append(pollDetail.render().$el);
-    });
+    } else {
+      var renderedContent = this.signInTemplate();
+      this.$el.html(renderedContent);
+    }
     return this;
   },
 

@@ -17,9 +17,9 @@ PollForUs::Application.routes.draw do
     get :guest_login
   end
 
-  resources :polls, only: [:index, :create, :update, :destroy]
+  resources :polls, only: [:index, :show, :create, :update, :destroy]
   resources :questions, only: [:create, :update, :destroy]
   resources :answers, only: [:create, :update, :destroy]
 
-  root to: "polls#index"
+  root to: "sessions#new"
 end

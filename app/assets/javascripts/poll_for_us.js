@@ -3,8 +3,15 @@ window.PollForUs = {
   Collections: {},
   Views: {},
   Routers: {},
-  Store: {},
+  Store: {
+  },
   initialize: function() {
+    PollForUs.Store = {
+
+      addErrorsTemplate: JST["polls/add_errors"],
+      addNoticesTemplate: JST["polls/add_notices"],
+      addSuccessesTemplate: JST["polls/add_successes"]
+    };
     var pollData = JSON.parse($("#polls-data").html());
     var currentUserData = JSON.parse($("#current-user-data").html());
     PollForUs.currentUser = new PollForUs.Models.CurrentUser(currentUserData);

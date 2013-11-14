@@ -10,14 +10,13 @@ PollForUs.Views.SignIn = Backbone.View.extend({
   
   template: JST["session/new"],
   loginTemplate: JST["session/logout"],
-  addErrorsTemplate: JST["polls/add_errors"],
 
   render: function() {
     var signIn = this;
     var renderedContent = this.template();
     this.$el.html(renderedContent);
     if(this.show404 === true) {
-      var renderedErrorsContent = this.addErrorsTemplate({
+      var renderedErrorsContent = PollForUs.Store.addErrorsTemplate({
         errors: ["Page doesn't exist! Please log in"]
       });
       this.$el.find(".errors").html(renderedErrorsContent);
@@ -40,7 +39,7 @@ PollForUs.Views.SignIn = Backbone.View.extend({
         Backbone.history.navigate("", {trigger: true});
       },
       error: function(model) {
-      var renderedErrorsContent = this.addErrorsTemplate({
+      var renderedErrorsContent = PollForUs.Store.addErrorsTemplate({
         errors: ["Invalid username or password, please try again!"]
       });
       this.$el.find(".errors").html(renderedErrorsContent);

@@ -2,9 +2,6 @@ PollForUs.Views.PollNew = Backbone.View.extend({
   template: JST["polls/new_edit"],
   addQuestionTemplate: JST["polls/add_question"],
   addAnswerTemplate: JST["polls/add_answer"],
-  addErrorsTemplate: JST["polls/add_errors"],
-  addNoticesTemplate: JST["polls/add_notices"],
-  addSuccessesTemplate: JST["polls/add_successes"],
   events: {
     "submit .new-poll-form": "submit",
     "click .add-question": "addQuestion",
@@ -39,6 +36,7 @@ PollForUs.Views.PollNew = Backbone.View.extend({
           newView.model.get("questions").forEach(function(question) {
             PollForUs.allAnswers.add(question.get("answers").models);
           });
+          newView.collection.trigger("newSuccessMessage", {messages: ["Poll Successfully Created!"]});
         },
         error: function(poll) {
         }
@@ -46,7 +44,7 @@ PollForUs.Views.PollNew = Backbone.View.extend({
 
       Backbone.history.navigate("", {trigger: true});
     } else {
-      var renderedContent = this.addErrorsTemplate({
+      var renderedContent = PollForUs.Store.addErrorsTemplate({
         errors: validationErrors
       });
       this.$el.find(".errors").html(renderedContent);

@@ -4,6 +4,7 @@ PollForUs.Views.PollDetail = Backbone.View.extend({
   initialize: function() {
     this.listenTo(PollForUs.allAnswers, "add remove change", this.render);
     this.listenTo(PollForUs.polls, "add remove, change", this.render);
+    this.listenTo(this.model, "newSuccessMessage", this.newSuccessMessage);
   },
   events: {
     "click .delete-poll": "deletePoll",
@@ -29,6 +30,15 @@ PollForUs.Views.PollDetail = Backbone.View.extend({
     });
     return this;
   },
+
+  newSuccessMessage: function(options) {
+    debugger;
+    renderedSuccesses = PollForUs.Store.addSuccessesTemplate({
+      successes: options.messages
+    });
+    this.$el.find(".successes").html(renderedSuccesses);
+  },
+
   setupChart: function(question, colors) {
     var pollDetail = this;
     var ctx = this.$el.find("#question-results-" + question.id).get(0).getContext("2d");

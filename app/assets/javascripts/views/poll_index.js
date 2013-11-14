@@ -2,6 +2,7 @@ PollForUs.Views.PollIndex = Backbone.View.extend({
   
   initialize: function() {
     this.listenTo(this.collection, "add remove change", this.render);
+    this.listenTo(this.collection, "newSuccessMessage", this.newSuccessMessage);
   },
   events: {
     "click .delete-poll": "deletePoll",
@@ -23,10 +24,19 @@ PollForUs.Views.PollIndex = Backbone.View.extend({
         pollIndex.$(".polls").append(pollDetail.render().$el);
       });
     } else {
-      var renderedContent = this.signInTemplate();
-      this.$el.html(renderedContent);
+      debugger
+      Backbone.history.navigate("#signin", {trigger: true});
+      //var renderedContent = this.signInTemplate();
+      //this.$el.html(renderedContent);
     }
     return this;
+  },
+
+  newSuccessMessage: function(options) {
+    renderedSuccesses = PollForUs.Store.addSuccessesTemplate({
+      successes: options.messages
+    });
+    this.$el.find(".successes").html(renderedSuccesses);
   },
 
   deletePoll: function(event) {

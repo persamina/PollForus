@@ -2,7 +2,7 @@
 
 <h3> Send the Answer Text Code to <strong>+1 928-237-4477</strong>
     <% if (PollForUs.currentUser.get("id") === poll.get("user_id")) { %>
-    <a href="#/polls/<%= poll.id %>/edit" class="edit-poll no-underline" data-poll-id="<%= poll.id %>">
+    <a href="#<%= poll.id %>/edit" class="edit-poll no-underline" data-poll-id="<%= poll.id %>">
       <i class="icon-edit"></i>
     </a> 
     <a href="#" class="delete-poll no-underline" data-poll-id="<%= poll.id %>">

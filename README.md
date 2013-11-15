@@ -21,7 +21,7 @@ Pollfor.us is a polling application that allows you to poll people (an audience,
 - [CSS](https://en.wikipedia.org/wiki/Cascading_Style_Sheets)
 - [heroku](https://www.heroku.com/)
 - [Twitter Bootstrap](http://getbootstrap.com/2.3.2/)
--[Github](https://github.com/)
+- [Github](https://github.com/)
 
 ## What's next
 - index of all polls
@@ -29,4 +29,3 @@ Pollfor.us is a polling application that allows you to poll people (an audience,
 - tags
 - Ability to add photos to vote on. 
 
-[Google](http://www.google.com/)

@@ -32,7 +32,6 @@ PollForUs.Views.PollDetail = Backbone.View.extend({
   },
 
   newSuccessMessage: function(options) {
-    debugger;
     renderedSuccesses = PollForUs.Store.addSuccessesTemplate({
       successes: options.messages
     });
@@ -42,13 +41,19 @@ PollForUs.Views.PollDetail = Backbone.View.extend({
   setupChart: function(question, colors) {
     var pollDetail = this;
     var ctx = this.$el.find("#question-results-" + question.id).get(0).getContext("2d");
+    var options = {
+      animationSteps: 50,
+      segmentStrokeWidth: 1,
+      animateRotate: true,
+      animationEasing: "easeOutQuart"
+    };
     var myNewChart = new Chart(ctx);
     var data =[];
     question.get("answers").forEach(function(answer) {
 
       data.push({value: answer.get("user_answers"), color: colors[answer.id]});
     });
-    new Chart(ctx).Pie(data);
+    new Chart(ctx).Pie(data, options);
 
   },
   generateColors: function(question) {

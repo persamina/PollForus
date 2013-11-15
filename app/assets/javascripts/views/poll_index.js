@@ -24,7 +24,6 @@ PollForUs.Views.PollIndex = Backbone.View.extend({
         pollIndex.$(".polls").append(pollDetail.render().$el);
       });
     } else {
-      debugger
       Backbone.history.navigate("#signin", {trigger: true});
       //var renderedContent = this.signInTemplate();
       //this.$el.html(renderedContent);

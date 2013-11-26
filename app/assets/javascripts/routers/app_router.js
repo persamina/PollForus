@@ -62,6 +62,7 @@ PollForUs.Routers.AppRouter = Backbone.Router.extend({
     var pollDetail = new PollForUs.Views.PollDetail({
       model: poll
     });
+
     this._swapView(pollDetail.render().$el);
   },
 

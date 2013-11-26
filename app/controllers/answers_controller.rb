@@ -8,6 +8,7 @@ class AnswersController < ApplicationController
 
   def create 
     @answer = Answer.new(params[:answer]);
+
     if @answer.save
       render :json => @answer
     else
@@ -17,6 +18,7 @@ class AnswersController < ApplicationController
 
   def update
     @answer = Answer.find(params[:answer_id]);
+
     if @answer.update_attributes(params[:answer])
       render :json => @answer
     else
@@ -26,6 +28,7 @@ class AnswersController < ApplicationController
 
   def destroy
     @answer = Answer.find(params[:id]);
+
     if @answer
       @answer.destroy
     end

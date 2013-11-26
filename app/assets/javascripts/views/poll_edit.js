@@ -29,7 +29,6 @@ PollForUs.Views.PollEdit = Backbone.View.extend({
     return this;
   },
 
-  
   submit: function(event) {
     var editView = this;
     event.preventDefault();

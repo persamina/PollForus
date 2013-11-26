@@ -17,5 +17,4 @@ class Session < ActiveRecord::Base
     end
     token
   end
-
 end

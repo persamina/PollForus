@@ -12,12 +12,7 @@ class User < ActiveRecord::Base
 
   before_validation :create_confirm_token
   before_validation :remove_whitespace
-  #after_create :require_session_token
 
-  #def require_session_token
-    #Session.create(user_id: self.id);
-  #end
-  #
   def remove_whitespace
     self.email.strip!
     self.username.strip!
@@ -59,9 +54,9 @@ class User < ActiveRecord::Base
 
   def self.find_by_credentials(email, password)
     @user = User.find_by_email(email)
+
     if @user
       return @user if @user.is_password?(password)
     end
   end
-
 end

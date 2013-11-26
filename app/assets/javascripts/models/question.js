@@ -11,10 +11,12 @@ PollForUs.Models.Question = Backbone.Model.extend({
       }
     }
   },
+
   parse: function(respAttrs, options) {
     respAttrs.answers = new PollForUs.Collections.Answers(respAttrs.answers, {parse: true});
     return respAttrs;
   },
+
   toJSON: function() {
     var data = _.extend({}, this.attributes);
     if(this.get("answers")) {

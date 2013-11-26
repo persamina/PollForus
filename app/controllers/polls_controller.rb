@@ -9,14 +9,12 @@ class PollsController < ApplicationController
   end
 
   def index 
-
     if current_user
       #allows us to use @current_user in userRABL file
       @current_user = current_user
       @polls = Poll.includes(:questions => {:answers => :answer_choices}).where(:user_id => current_user.id)
     end
 
-    #@polls = Poll.find_all_by_user_id(current_user.id)
     if(@polls)
       respond_to do |format|
         format.html { render :index }
@@ -60,5 +58,4 @@ class PollsController < ApplicationController
     end
     render :showRABL
   end
-
 end

@@ -56,14 +56,15 @@ PollForUs.Views.PollEdit = Backbone.View.extend({
               }
             });
           });
+          Backbone.history.navigate("#" + poll.id, {trigger: true});
           editView.model.trigger("newSuccessMessage", {messages: ["The poll '"+ editView.model.get("name") + "' was successfully Updated!"]});
         },
         error: function(model) {
+          Backbone.history.navigate("#", {trigger: true});
         },
 
       });
 
-      Backbone.history.navigate("#/" + this.model.id, {trigger: true});
     } else {
       var renderedContent = PollForUs.Store.addErrorsTemplate({
         errors: validationErrors

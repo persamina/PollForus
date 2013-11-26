@@ -69,7 +69,7 @@ PollForUs.Routers.AppRouter = Backbone.Router.extend({
     var newPoll = new PollForUs.Models.Poll();
     var pollNew = new PollForUs.Views.PollNew({
       collection: PollForUs.polls,
-        model: newPoll
+      model: newPoll
     });
 
     this._swapView(pollNew.render().$el);
@@ -77,9 +77,10 @@ PollForUs.Routers.AppRouter = Backbone.Router.extend({
 
   showEdit: function(id) {
     var editPoll = PollForUs.polls.get(id);
+    debugger;
     var pollEdit = new PollForUs.Views.PollEdit({
       collection: PollForUs.polls,
-        model: editPoll
+      model: editPoll
     });
 
     this._swapView(pollEdit.render().$el);

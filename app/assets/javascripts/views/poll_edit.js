@@ -14,8 +14,8 @@ PollForUs.Views.PollEdit = Backbone.View.extend({
     var editView = this;
     var renderedContent = this.template({
       poll: this.model,
-      title: "Edit Poll",
-      btnText: "Update Poll!"
+      btnText: "Update Poll!",
+      title: "Edit Poll"
     });
     this.$el.html(renderedContent);
     this.model.get("questions").forEach(function(question) {

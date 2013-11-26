@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <%= favicon_link_tag 'favicon.ico' %>
-  <title>PollForUs</title>
-  <%= stylesheet_link_tag "application", :media => "all" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <%= render "/layouts/navbar" %>
-  <%= render "layouts/flash", flash: flash %>
-  <%= yield %>
-</body>
-
+  <head>
+    <%= favicon_link_tag 'favicon.ico' %>
+    <title>PollForUs</title>
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <%= render "/layouts/navbar" %>
+    <%= render "layouts/flash", flash: flash %>
+    <%= yield %>
+  </body>
 </html>

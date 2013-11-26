@@ -12,7 +12,6 @@ class QuestionsController < ApplicationController
     if @question.save
       render :json => :@question
     else
-      
       render 422
     end
   end

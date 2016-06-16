@@ -75,7 +75,6 @@ PollForUs.Views.PollDetail = Backbone.View.extend({
   },
 
   deletePoll: function(event) {
-    console.log("Delete poll in backbone!")
     event.preventDefault();
     var iconClicked = $(event.target);
     var pollId = iconClicked.parent().data("pollId");

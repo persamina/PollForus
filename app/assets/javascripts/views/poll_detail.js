@@ -11,7 +11,7 @@ PollForUs.Views.PollDetail = Backbone.View.extend({
     "click .delete-question": "deleteQuestion",
   },
 
-  colorOptions: ["#B41338", "#B8B4AD", "#007599", "#BC5A33", "#2C2C31", 
+  colorOptions: ["#B41338", "#B8B4AD", "#007599", "#BC5A33", "#2C2C31",
                  "#00A4A3", "#E0B217", "#289E73", "#5C3F63", "#5A4A42"],
 
   render: function() {
@@ -75,6 +75,7 @@ PollForUs.Views.PollDetail = Backbone.View.extend({
   },
 
   deletePoll: function(event) {
+    console.log("Delete poll in backbone!")
     event.preventDefault();
     var iconClicked = $(event.target);
     var pollId = iconClicked.parent().data("pollId");

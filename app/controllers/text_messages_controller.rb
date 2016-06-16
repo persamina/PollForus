@@ -1,6 +1,6 @@
 class TextMessagesController < ApplicationController
   def receive_text_message
-    @message_text = params["Body"].gsub(/\s+/, "")    
+    @message_text = params["Body"].gsub(/\s+/, "")
     @from_phone_number = params["From"]
     @message = "You didn't send us a number please try again!"
 
@@ -33,7 +33,7 @@ class TextMessagesController < ApplicationController
   end
 
   def send_text_message(message, phone_number)
-    @twilio_client = Twilio::REST::Client.new ENV["TWILIO_SID"], 
+    @twilio_client = Twilio::REST::Client.new ENV["TWILIO_SID"],
                                               ENV["TWILIO_AUTH_TOKEN"]
     @twilio_client.account.sms.messages.create(
       :from => "+1#{ENV["TWILIO_PHONE_NUMBER"]}",

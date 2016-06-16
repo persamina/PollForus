@@ -5,10 +5,10 @@ class PollsController < ApplicationController
   before_filter :require_login, :except => [:index, :show]
 
   def require_login
-    redirect_to new_session_url unless current_user  
+    redirect_to new_session_url unless current_user
   end
 
-  def index 
+  def index
     if current_user
       #allows us to use @current_user in userRABL file
       @current_user = current_user
@@ -23,7 +23,7 @@ class PollsController < ApplicationController
     end
   end
 
-  def create 
+  def create
     @poll = Poll.new(params[:poll])
     @poll.user_id = current_user.id
     if @poll.save
@@ -33,7 +33,7 @@ class PollsController < ApplicationController
     end
   end
 
-  def show 
+  def show
     @poll = Poll.find(params[:id])
     if @poll
       render :showRABL
@@ -52,6 +52,7 @@ class PollsController < ApplicationController
   end
 
   def destroy
+    puts "here in polls controller!"
     @poll = Poll.find(params[:id])
     if @poll
       @poll.destroy
